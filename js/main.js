@@ -176,7 +176,16 @@ function initMobileHint() {
     }
 }
 
-// 9. FREE SLACK INTEGRATION (Private Parties) - FIXED FOR #all-vinnysatnight
+/* ==========================================================================
+   SLACK INTEGRATIONS
+   ========================================================================== */
+
+// SHARED WEBHOOK CONFIG (UNIFIED)
+const SLACK_BASE = 'https://hooks.slack.com/services/T0AHTHUDVDL/';
+const SLACK_KEY = 'B0AJ8UUGHBN/k1lQvfvOQ3Lu87r7VxdyADIy'; // The specific #all-vinnysatnight Key
+const slackUrl = SLACK_BASE + SLACK_KEY;
+
+// 9. Private Parties
 function initSlackReservations() {
     const partyForm = document.getElementById('party-form');
     if (!partyForm) return;
@@ -188,11 +197,6 @@ function initSlackReservations() {
         btn.innerText = 'SENDING...';
         btn.disabled = true;
 
-        // THE SPECIFIC #all-vinnysatnight WEBHOOK
-        const s1 = 'https://hooks.slack.com/services/T0AHTHUDVDL/';
-        const s2 = 'B0AJ1M4PZBQ/atU2n3rpXLHthq1oQnVxIt73'; // Matches your Carmen/Mar 2nd screenshot
-        const slackUrl = s1 + s2;
-
         const payload = {
             text: `🚨 *New Private Party Inquiry!*\n\n` +
                   `*Name:* ${document.getElementById('party-name').value}\n` +
@@ -203,19 +207,13 @@ function initSlackReservations() {
                   `_Sent from Vinny's Ristorante Website_`
         };
 
-        fetch(slackUrl, { 
-            method: 'POST', 
-            mode: 'no-cors', // Added to prevent browser "CORS" errors
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload) 
-        })
+        fetch(slackUrl, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
         .then(() => {
             alert('Thank you! Your inquiry has been sent to our team via Slack.');
             btn.innerText = 'SENT!';
             partyForm.reset();
         })
-        .catch(err => {
-            console.error('Slack Error:', err);
+        .catch(() => {
             alert('Connection error. Please call us at (617) 628-9214.');
             btn.disabled = false;
             btn.innerText = originalText;
@@ -223,7 +221,7 @@ function initSlackReservations() {
     });
 }
 
-// 10. FREE SLACK INTEGRATION (Regular Reservations)
+// 10. Regular Reservations
 function initGeneralReservations() {
     const resForm = document.getElementById('res-form');
     if (!resForm) return;
@@ -231,12 +229,9 @@ function initGeneralReservations() {
     resForm.addEventListener('submit', function(e) {
         e.preventDefault();
         const btn = resForm.querySelector('.vinny-btn');
+        const originalText = btn.innerText;
         btn.innerText = 'BOOKING...';
         btn.disabled = true;
-
-        const s1 = 'https://hooks.slack.com/services/T0AHTHUDVDL/';
-        const s2 = 'B0AJ1M4PZBQ/atU2n3rpXLHthq1oQnVxIt73';
-        const slackUrl = s1 + s2;
 
         const payload = {
             text: `🍷 *New Table Reservation!*\n\n` +
@@ -247,12 +242,7 @@ function initGeneralReservations() {
                   `*Occasion:* ${document.getElementById('res-occasion').value}`
         };
 
-        fetch(slackUrl, { 
-            method: 'POST', 
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload) 
-        })
+        fetch(slackUrl, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
         .then(() => {
             alert('Reservation request sent! We will see you soon.');
             btn.innerText = 'BOOKED!';
@@ -261,25 +251,12 @@ function initGeneralReservations() {
         .catch(() => {
             alert('Error. Please call (617) 628-9214 to book.');
             btn.disabled = false;
-            btn.innerText = 'Find a Table';
+            btn.innerText = originalText;
         });
     });
 }
 
-// 11. INITIALIZE EVERYTHING ON LOAD (UNIFIED)
-document.addEventListener('DOMContentLoaded', () => {
-    initVideoControls();
-    initSmoothScroll();
-    initNavEffects();
-    initScrollObserver();
-    initSpecialsDates();
-    initMobileHint();
-    initSlackReservations();      // Parties
-    initGeneralReservations();    // Regular Tables
-    initCateringReservations();   // Catering (The new one!)
-});
-
-// 12. FREE SLACK INTEGRATION (Catering)
+// 12. Catering Requests
 function initCateringReservations() {
     const catForm = document.getElementById('catering-form');
     if (!catForm) return;
@@ -290,10 +267,6 @@ function initCateringReservations() {
         const originalText = btn.innerText;
         btn.innerText = 'SENDING...';
         btn.disabled = true;
-
-        const s1 = 'https://hooks.slack.com/services/T0AHTHUDVDL/';
-        const s2 = 'B0AJ1M4PZBQ/atU2n3rpXLHthq1oQnVxIt73';
-        const slackUrl = s1 + s2;
 
         const payload = {
             text: `🥘 *NEW CATERING REQUEST!*\n\n` +
@@ -307,12 +280,7 @@ function initCateringReservations() {
                   `*Requests:* ${document.getElementById('cat-requests').value || 'None'}`
         };
 
-        fetch(slackUrl, { 
-            method: 'POST', 
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload) 
-        })
+        fetch(slackUrl, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
         .then(() => {
             alert('Catering request sent! We will be in touch shortly.');
             btn.innerText = 'SENT!';
@@ -325,3 +293,19 @@ function initCateringReservations() {
         });
     });
 }
+
+/* ==========================================================================
+   INITIALIZATION
+   ========================================================================== */
+
+document.addEventListener('DOMContentLoaded', () => {
+    initVideoControls();
+    initSmoothScroll();
+    initNavEffects();
+    initScrollObserver();
+    initSpecialsDates();
+    initMobileHint();
+    initSlackReservations();      // Parties
+    initGeneralReservations();    // Regular Tables
+    initCateringReservations();   // Catering
+});
