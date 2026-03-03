@@ -176,7 +176,7 @@ function initMobileHint() {
     }
 }
 
-// 9. FREE SLACK INTEGRATION (Private Parties)
+// 9. FREE SLACK INTEGRATION (Private Parties) - FIXED FOR #all-vinnysatnight
 function initSlackReservations() {
     const partyForm = document.getElementById('party-form');
     if (!partyForm) return;
@@ -188,9 +188,9 @@ function initSlackReservations() {
         btn.innerText = 'SENDING...';
         btn.disabled = true;
 
-        // NEW SPLIT URL APPROACH
+        // THE SPECIFIC #all-vinnysatnight WEBHOOK
         const s1 = 'https://hooks.slack.com/services/T0AHTHUDVDL/';
-        const s2 = 'B0AJ1M4PZBQ/atU2n3rpXLHthq1oQnVxIt73';
+        const s2 = 'B0AJ1M4PZBQ/atU2n3rpXLHthq1oQnVxIt73'; // Matches your Carmen/Mar 2nd screenshot
         const slackUrl = s1 + s2;
 
         const payload = {
@@ -203,13 +203,19 @@ function initSlackReservations() {
                   `_Sent from Vinny's Ristorante Website_`
         };
 
-        fetch(slackUrl, { method: 'POST', body: JSON.stringify(payload) })
+        fetch(slackUrl, { 
+            method: 'POST', 
+            mode: 'no-cors', // Added to prevent browser "CORS" errors
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload) 
+        })
         .then(() => {
             alert('Thank you! Your inquiry has been sent to our team via Slack.');
             btn.innerText = 'SENT!';
             partyForm.reset();
         })
         .catch(err => {
+            console.error('Slack Error:', err);
             alert('Connection error. Please call us at (617) 628-9214.');
             btn.disabled = false;
             btn.innerText = originalText;
@@ -228,7 +234,6 @@ function initGeneralReservations() {
         btn.innerText = 'BOOKING...';
         btn.disabled = true;
 
-        // NEW SPLIT URL APPROACH
         const s1 = 'https://hooks.slack.com/services/T0AHTHUDVDL/';
         const s2 = 'B0AJ1M4PZBQ/atU2n3rpXLHthq1oQnVxIt73';
         const slackUrl = s1 + s2;
@@ -242,7 +247,12 @@ function initGeneralReservations() {
                   `*Occasion:* ${document.getElementById('res-occasion').value}`
         };
 
-        fetch(slackUrl, { method: 'POST', body: JSON.stringify(payload) })
+        fetch(slackUrl, { 
+            method: 'POST', 
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload) 
+        })
         .then(() => {
             alert('Reservation request sent! We will see you soon.');
             btn.innerText = 'BOOKED!';
@@ -255,3 +265,15 @@ function initGeneralReservations() {
         });
     });
 }
+
+// 11. INITIALIZE EVERYTHING ON LOAD
+document.addEventListener('DOMContentLoaded', () => {
+    initVideoControls();
+    initSmoothScroll();
+    initNavEffects();
+    initScrollObserver();
+    initSpecialsDates();
+    initMobileHint();
+    initSlackReservations();
+    initGeneralReservations();
+});
