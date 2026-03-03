@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinny's Ristorante | Somerville Italian</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="announcement-bar">
+        <span>76 Broadway, Somerville, MA</span>
+        <span>(617) 628-1921</span>
+    </div>
+
+    <header class="menu-hero">
+        <video autoplay muted loop playsinline class="hero-video" id="hero-video">
+            <source src="assets/video/vinnys-hero.mp4" type="video/mp4">
+        </video>
+        
+        <button id="mute-toggle" class="mute-btn">SOUND ON</button>
+    
+        <div class="hero-overlay">
+            <span class="hero-pretitle">Welcome to Vinny's Ristorante</span>
+            <h1>Authentic Sicilian</h1>
+            </div>
+    </header>
+    
+    <nav class="menu-cat-nav">
+        <div class="nav-logo-container">
+            <a href="index.html" class="nav-logo-main">
+                <img src="assets/images/Logo.png" alt="Vinny's Ristorante">
+            </a> 
+        </div>
+    
+        <ul>
+            <li><a href="index.html" class="active">HOME</a></li>
+            <li><a href="menu.html">THE MENU</a></li>
+            <li><a href="spirits-wine.html">SPIRITS</a></li>
+            <li><a href="specials.html">SPECIALS</a></li>
+            <li><a href="reservations.html">RESERVE</a></li>
+            <li><a href="parties.html">PARTIES</a></li>
+            <li><a href="catering.html">CATERING</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="about" class="about-section">
+            <div class="about-container">
+                <div class="about-image">
+                    <img src="assets/images/Legacy.png" alt="Vinny's Kitchen Legacy">
+                </div> 
+                <div class="about-content">
+                    <span class="hero-subtitle">The Legacy</span>
+                    <h2>Authentic Sicilian Heart</h2>
+                    <div class="it-divider-minimal"></div>
+                    <p>Nestled just 300 yards from the Boston City Limits and near Sullivan Square Station, 
+                        Vinny's offers a dining experience rich in authentic Sicilian flavors and traditions.</p>
+                    <p>Our lunch and dinner menus celebrate the heart of Sicilian cuisine, 
+                        lovingly crafted with the finest ingredients to bring the vibrant tastes of Sicily to your table.</p>
+                    <p>Complement your meal with a selection from our extensive wine list or a cocktail from our bar, 
+                        and don't forget to indulge in the best desserts this side of the North End.</p>
+                    <span class="about-signature">Vinny Migliore</span>
+                </div>
+            </div> 
+        </section>
+
+        <section id="gallery" class="food-gallery">
+            <div class="gallery-header">
+                <span class="hero-subtitle">Taste the Tradition</span>
+                <h2>From Our Kitchen</h2>
+                <div class="it-divider-minimal"></div>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item large">
+                    <img src="assets/images/Austraian rack of lamb.jpeg" alt="Australian Rack of Lamb">
+                    <div class="item-overlay"><span>Australian Rack of Lamb</span></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/Beef Bracciola.jpeg" alt="Beef Bracciola">
+                    <div class="item-overlay"><span>Beef Bracciola</span></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/Lamb Osso.jpeg" alt="Lamb Osso">
+                    <div class="item-overlay"><span>Lamb Osso Buco</span></div>
+                </div>
+                <div class="gallery-item tall">
+                    <img src="assets/images/Wine-selection.png" alt="Italian Wine Selection">
+                    <div class="item-overlay"><span>Wine Selection</span></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/Desserts.jpeg" alt="Homemade Cannoli">
+                    <div class="item-overlay"><span>Best Desserts</span></div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="reviews" class="reviews-section">
+            <div class="reviews-overlay">
+                <div class="section-header center">
+                    <span class="hero-subtitle">What People Say</span>
+                    <h2>Guest Experiences</h2>
+                </div>
+                <div class="reviews-grid">
+                    <div class="review-card">
+                        <div class="stars">★★★★★</div>
+                        <p>"Best hidden gem in Somerville. The pasta is fresh and you feel like family the moment you walk in."</p>
+                        <span class="reviewer">— Anthony L., Boston</span>
+                    </div>
+                    <div class="review-card">
+                        <div class="stars">★★★★★</div>
+                        <p>"An authentic taste of Sicily right here on Broadway. The veal marsala is world-class."</p>
+                        <span class="reviewer">— Sarah M., Cambridge</span>
+                    </div>
+                    <div class="review-card">
+                        <div class="stars">★★★★★</div>
+                        <p>"Vinny's never misses. Great for a date night or a big family dinner."</p>
+                        <span class="reviewer">— Michael R., Somerville</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="location" class="sophisticated-map-section">
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2946.892403666068!2d-71.0838186238891!3d42.38749877119053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e370e63717277d%3A0xc62227187c327918!2sVinny&#39;s%20at%20Night!5e0!3m2!1sen!2sus!4v1708290000000!5m2!1sen!2sus" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+        
+                <div class="map-floating-card">
+                    <span class="hero-subtitle">Find Us</span>
+                    <h3>Visit the Ristorante</h3>
+                    <div class="it-divider-minimal"></div>
+                    
+                    <div class="map-details">
+                        <div class="detail-item">
+                            <strong>Address</strong>
+                            <span>76 Broadway, Somerville</span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>Phone</strong>
+                            <span>(617) 628-9830</span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>District</strong>
+                            <span>Winter Hill</span>
+                        </div>
+                    </div>
+        
+                    <a href="https://www.google.com/maps/dir//Vinny's+at+Night,+76+Broadway,+Somerville,+MA+02145" 
+                       target="_blank" 
+                       class="get-directions-btn">
+                       Get Directions
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <style>
+        .site-footer {
+            background-color: #151515;
+            padding: 80px 0 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-family: 'Montserrat', sans-serif;
+            color: #fff;
+        }
+    
+        /* Target all links in the footer to prevent default blue/purple */
+        .site-footer a {
+            color: rgba(255, 255, 255, 0.6) !important;
+            text-decoration: none !important;
+            transition: color 0.3s ease !important;
+        }
+    
+        /* Hover State: Boutique Gold */
+        .site-footer a:hover {
+            color: #d4af37 !important; /* Gold */
+        }
+    
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 60px;
+            padding: 0 30px;
+        }
+    
+        .footer-col h4 {
+            font-family: 'Playfair Display', serif;
+            color: #c43131; /* Velvet Crimson */
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+    
+        .footer-logo {
+            height: 65px;
+            margin-bottom: 20px;
+            display: block;
+        }
+    
+        .footer-link-grid {
+            display: flex;
+            flex-direction: column;
+        }
+    
+        .footer-btn {
+            margin-bottom: 12px;
+            font-size: 13px;
+            letter-spacing: 1px;
+            font-weight: 400;
+        }
+    
+        .footer-hours p {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+    
+        .footer-hours span {
+            color: #fff;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+    
+        .footer-bottom {
+            margin-top: 60px;
+            padding: 40px 20px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+        }
+    
+        .footer-copyright p {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+    
+        .footer-legal {
+            margin-bottom: 25px;
+        }
+    
+        .footer-legal a {
+            font-size: 12px;
+            margin: 0 15px;
+        }
+    
+        .agency-credit {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.2);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 20px;
+        }
+    
+        .lenoper-link {
+            font-weight: 700 !important;
+            opacity: 0.5;
+        }
+    
+        @media (max-width: 768px) {
+            .footer-container { grid-template-columns: 1fr; text-align: center; }
+            .footer-logo { margin: 0 auto 20px; }
+        }
+    </style>
+    
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-col brand-info">
+                <a href="index.html">
+                    <img src="assets/images/Logo.png" alt="Vinny's Ristorante" class="footer-logo">
+                </a>
+                <p style="font-size: 14px; line-height: 1.8;">Authentic Sicilian cuisine in the heart of Somerville since 1969. A local legacy of flavor and tradition.</p>
+                <div class="footer-socials" style="margin-top: 20px;">
+                    <a href="https://www.facebook.com/VinnysAtNight" class="social-link" style="margin-right: 15px;">FB</a>
+                    <a href="https://www.instagram.com/vinnysristorante/" class="social-link" style="margin-right: 15px;">IG</a>
+                    <a href="https://www.instagram.com/vinnysristorante/" class="social-link">X</a>
+                </div>
+            </div>
+    
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <div class="footer-link-grid">
+                    <a href="menu.html" class="footer-btn">THE MENU</a>
+                    <a href="reservations.html" class="footer-btn">RESERVATIONS</a>
+                    <a href="catering.html" class="footer-btn">CATERING</a>
+                    <a href="specials.html" class="footer-btn">SPECIALS</a>
+                </div>
+            </div>
+    
+            <div class="footer-col">
+                <h4>Hours of Operation</h4>
+                <div class="footer-hours">
+                    <p><span>MON - SAT:</span> 11:00 AM - 10:00 PM</p>
+                    <p><span>SUN:</span> 4:00 PM - 9:00 PM</p>
+                </div>
+            </div>
+        </div>
+    
+        <div class="footer-bottom">
+            <div class="footer-copyright">
+                <p>© 2026 VINNY'S RISTORANTE. ALL RIGHTS RESERVED.</p>
+            </div>
+            
+            <div class="footer-legal">
+                <a href="terms.html">Terms</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="jobs.html">Carrers</a>
+                
+            </div>
+    
+            <div class="agency-credit">
+                Customized Design, Development, Administration & Maintenance by 
+                <a href="https://lenoper.com/" class="lenoper-link">Lenoper Technologies, Inc.</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <div id="infoModal" class="vinny-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            
+            <header class="modal-header">
+                <img src="assets/images/Logo.png" alt="Vinny's" class="modal-logo">
+                <h2>Welcome to Vinny's</h2>
+                <div class="modal-divider"></div>
+            </header>
+    
+            <div class="modal-body">
+                <div class="info-section">
+                    <h3><i class="icon">🥪</i> THE DELI</h3>
+                    <p><strong>Open Daily:</strong> 7:00 AM — 8:00 PM</p>
+                    <p>Italian Imports, Subs & Prepared Foods.</p>
+                </div>
+    
+                <div class="info-section">
+                    <h3><i class="icon">🍝</i> DINING ROOM</h3>
+                    
+                    <div class="hour-block">
+                        <p><strong>LUNCH:</strong> Mon — Sat | 11:00 AM — 3:00 PM</p>
+                    </div>
+                    
+                    <div class="hour-block" style="margin-top: 10px;">
+                        <p><strong>DINNER:</strong> Mon — Sat | 4:30 PM — 10:00 PM</p>
+                        <p><strong>SUNDAY:</strong> 3:00 PM — 9:00 PM</p>
+                    </div>
+                </div>
+    
+                <div class="info-section catering-highlight">
+                    <h3><i class="icon">🎉</i> CATERING</h3>
+                    <p>Planning an event? Our full Sicilian menu is available for parties of any size.</p>
+                    <a href="catering.html" class="modal-btn">View Catering Menu</a>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <style>
+        /* Scoped Modal Styling */
+        .vinny-modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.85);
+            backdrop-filter: blur(5px);
+        }
+    
+        .modal-content {
+            background: #1a1a1a;
+            margin: 10% auto;
+            padding: 40px;
+            border: 1px solid #d4af37;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 8px;
+            position: relative;
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+    
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            color: #d4af37;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    
+        .modal-logo { height: 50px; margin-bottom: 15px; }
+        
+        .modal-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+    
+        .modal-divider {
+            width: 50px;
+            height: 2px;
+            background: #c43131;
+            margin: 15px auto 25px;
+        }
+    
+        .info-section { margin-bottom: 25px; }
+        
+        .info-section h3 {
+            color: #d4af37;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+    
+        .info-section p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.6;
+            margin: 5px 0;
+        }
+    
+        .catering-highlight {
+            background: rgba(212, 175, 55, 0.05);
+            padding: 20px;
+            border-radius: 4px;
+            border: 1px dashed rgba(212, 175, 55, 0.3);
+        }
+    
+        .modal-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 25px;
+            background: #c43131;
+            color: #fff;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+    
+        .modal-btn:hover { background: #a22828; }
+    </style>
+    
+    <script>
+        // Show modal on page load
+        window.onload = function() {
+            var modal = document.getElementById("infoModal");
+            var span = document.getElementsByClassName("close-modal")[0];
+    
+            // Small delay so it doesn't feel jarring
+            setTimeout(function() {
+                modal.style.display = "block";
+            }, 1000);
+    
+            // Close when clicking (X)
+            span.onclick = function() { modal.style.display = "none"; }
+    
+            // Close when clicking outside the box
+            window.onclick = function(event) {
+                if (event.target == modal) { modal.style.display = "none"; }
+            }
+        }
+    </script>
+</body>
+</html>

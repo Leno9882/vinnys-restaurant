@@ -1,0 +1,2821 @@
+/* ============================================================
+   0. GLOBAL SETTINGS & VARIABLES
+   ============================================================ */
+   :root {
+    /* Brand Colors */
+    --primary-bg: #1c1c1c;    
+    --darker-bg: #151515;     
+    --it-red: #c43131;       
+    --it-green: #008C45;
+    --gold: #c4a47c;         
+    
+    /* Typography & Glass */
+    --text-main: #ffffff;
+    --text-muted: rgba(255, 255, 255, 0.7);
+    --transition-smooth: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    background-color: var(--primary-bg);
+    color: var(--text-main);
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+::selection {
+    background-color: var(--it-green);
+    color: white;
+}
+
+/* ============================================================
+   0.1 GLOBAL NAVIGATION (STAYING LEAN)
+   ============================================================ */
+.main-nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: var(--transition-smooth);
+}
+
+
+.index-page .main-nav { background: transparent; }
+.sub-page .main-nav { 
+    background: var(--primary-bg);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.nav-link.active { color: var(--it-red); }
+
+.side-nav-container {
+    background: var(--primary-bg);
+    border-right: 1px solid var(--glass-border);
+}
+
+/* ============================================================
+   1. HERO MEDIA & SUB-PAGE HEADERS
+   ============================================================ */
+   .menu-hero {
+    position: relative;
+    height: 90vh; 
+    width: 100%;
+    overflow: hidden;
+    background: var(--darker-bg); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 1.1 LOCAL HERO VIDEO (HOME PAGE) */
+.hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;            
+    height: 100%;           
+    object-fit: cover;      
+    z-index: 1;
+    /* Lean: Reduced scale from 1.05 to 1.01 to lower GPU load */
+    scale: 1.01; 
+}
+
+/* 1.2 SUB-PAGE HERO (STATIC & FAST) */
+.sub-page-hero {
+    height: 50vh; 
+    background-size: cover;
+    background-position: center;
+    /* Lean: Removed 'fixed' attachment to prevent mobile scroll lag */
+    background-attachment: scroll; 
+    z-index: 5;
+}
+
+/* Grouped Sub-Page Backgrounds for cleaner maintenance */
+.menu-page .menu-hero    { background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.8)), url('../assets/images/Menu-Hero.jpg'); }
+.spirits-page .menu-hero { background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.8)), url('../assets/images/Wine-selection.png'); }
+.parties-page .menu-hero { background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.8)), url('../assets/images/Parties-Hero.jpg'); }
+
+/* 1.3 OVERLAY & INTERACTION */
+.hero-overlay {
+    position: relative;
+    z-index: 5;             
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, rgba(28, 28, 28, 0.1) 0%, rgba(21, 21, 21, 0.6) 100%);
+}
+
+.mute-btn {
+    position: absolute;
+    bottom: 40px; 
+    right: 40px;
+    z-index: 1000;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    color: #fff;
+    padding: 12px 24px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    transition: var(--transition-smooth);
+}
+
+.mute-btn:hover {
+    background: var(--it-red); 
+    transform: translateY(-3px); 
+}
+
+/* 1.4 TYPOGRAPHY & KEYFRAMES */
+.hero-pretitle {
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 8px; 
+    font-size: 1rem;
+    margin-bottom: 20px;
+    animation: fadeInDown 0.8s ease forwards;
+}
+
+.hero-overlay h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 10vw, 6rem); 
+    color: #fff;
+    text-transform: uppercase;
+    line-height: 1.1;
+    text-align: center;
+    text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    animation: fadeInUp 1s ease forwards;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* ============================================================
+   2. ANNOUNCEMENT BAR & GLOBAL HEADER (MORPHING SIDE-DOCK)
+   ============================================================ */
+   .announcement-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    background-color: #000;
+    color: var(--gold);
+    padding: 12px 5%;
+    text-align: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    z-index: 10001;
+    position: relative;
+}
+
+.menu-cat-nav {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    padding: 15px 0;
+    background: rgba(8, 8, 8, 0.9); 
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--glass-border);
+    /* Lean: Targeted transitions are much smoother on Desktop Chrome */
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                background 0.4s ease, 
+                border-radius 0.4s ease, 
+                width 0.4s ease;
+}
+
+/* 2.1 NAVIGATION LIST & LINKS */
+.menu-cat-nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    gap: clamp(20px, 3vw, 45px);
+    margin: 0;
+    padding: 0;
+    transition: gap 0.5s ease;
+}
+
+.menu-cat-nav a {
+    position: relative;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 0.75rem;
+    opacity: 0.6;
+    letter-spacing: 2px;
+    transition: var(--transition-smooth);
+}
+
+.menu-cat-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--it-green);
+    transform: translateX(-50%);
+    transition: var(--transition-smooth);
+}
+
+.menu-cat-nav a:hover,
+.menu-cat-nav a.active {
+    opacity: 1;
+}
+
+.menu-cat-nav a:hover::after,
+.menu-cat-nav a.active::after {
+    width: 100%;
+}
+
+/* 2.2 LOGO LOGIC (BASE) */
+.nav-logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.nav-logo-main img {
+    height: 60px;
+    width: auto;
+    transition: var(--transition-smooth);
+}
+
+.nav-logo-vertical {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-logo-vertical img {
+    width: 40px;
+    height: auto;
+}
+
+/* 2.3 DESKTOP SIDE-SHIFT MORPH (1024px+) */
+@media (min-width: 1024px) {
+    .menu-cat-nav.side-shift {
+        position: fixed;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 70px;
+        height: auto;
+        padding: 40px 0;
+        border-radius: 100px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        background: rgba(10, 10, 10, 0.98);
+        box-shadow: 20px 0 50px rgba(0,0,0,0.5);
+    }
+
+    .menu-cat-nav.side-shift ul { flex-direction: column; gap: 35px; }
+
+    .menu-cat-nav.side-shift a {
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        transform: rotate(180deg);
+        padding: 10px 5px;
+        font-size: 0.65rem;
+        opacity: 0.4;
+        display: flex;
+        align-items: center;
+    }
+
+    /* Side-mode Active Indicator */
+    .menu-cat-nav.side-shift a::after {
+        left: auto;
+        right: -10px;
+        width: 3px;
+        height: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--it-green);
+    }
+
+    .menu-cat-nav.side-shift a:hover::after,
+    .menu-cat-nav.side-shift a.active::after {
+        height: 100%;
+        width: 3px;
+    }
+
+    /* Logo Morph */
+    .menu-cat-nav.side-shift .nav-logo-main { display: none; }
+    .menu-cat-nav.side-shift .nav-logo-vertical { display: flex; margin-bottom: 30px; }
+    
+    .nav-logo-vertical span {
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        color: var(--gold);
+        font-family: 'Playfair Display', serif;
+        font-weight: 700;
+        letter-spacing: 4px;
+        font-size: 1.1rem;
+    }
+}
+
+/* 2.4 CONSOLIDATED MOBILE RESPONSIVENESS (768px-) */
+@media (max-width: 768px) {
+    .menu-cat-nav {
+        position: sticky !important;
+        transform: none !important;
+        width: 100% !important;
+        left: 0 !important;
+        border-radius: 0 !important;
+        padding: 15px 0; /* Balanced padding */
+    }
+
+    /* Lean: Removed the ::after fade hint as we are centering instead of scrolling */
+    .menu-cat-nav::after {
+        display: none;
+    }
+
+    .menu-cat-nav ul {
+        display: flex;
+        flex-wrap: wrap;       
+        justify-content: center; 
+        gap: 20px 30px;       
+        padding: 0 20px;       
+        overflow-x: visible;   
+    }
+
+    .menu-cat-nav li { 
+        scroll-snap-align: none; 
+    }
+
+    .menu-cat-nav a {
+        white-space: nowrap;
+        font-size: 0.7rem;
+        padding: 8px 0;
+        display: inline-block;
+        opacity: 0.8;         
+    }
+
+    .nav-logo-main img { 
+        height: 50px; 
+    }
+}
+
+/* ============================================================
+   3. SMART NAVIGATION (LOGO CENTERED & TRI-COLORE)
+   ============================================================ */
+   .main-nav {
+    position: sticky;
+    top: 0;
+    z-index: 10000;
+    padding: 15px 0;
+    /* Luxury Glass Effect */
+    background: rgba(8, 8, 8, 0.9);
+    backdrop-filter: blur(15px) saturate(160%);
+    -webkit-backdrop-filter: blur(15px) saturate(160%);
+    border-bottom: 1px solid var(--glass-border);
+    transition: var(--transition-smooth);
+}
+
+/* The "Tri-colore" Detail: Thin 3px bar at the very top */
+.main-nav::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(to right, 
+        var(--it-green) 33.33%, 
+        #ffffff 33.33%, 
+        #ffffff 66.66%, 
+        var(--it-red) 66.66%);
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1600px; 
+    margin: 0 auto;
+    padding: 0 4%;
+}
+
+.nav-group {
+    display: flex;
+    gap: clamp(10px, 2vw, 30px);
+    flex: 1;
+    align-items: center;
+}
+
+/* Logic: Groups "hug" the logo */
+.nav-group.left { justify-content: flex-end; }
+.nav-group.right { justify-content: flex-start; }
+
+.nav-logo {
+    flex-shrink: 0;
+    width: 180px; 
+    padding: 0 30px;
+    transition: var(--transition-smooth);
+}
+
+.nav-logo img {
+    max-height: 85px; 
+    width: auto;
+    display: block;
+    margin: 0 auto;
+    filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.nav-logo:hover img {
+    transform: scale(1.08) rotate(-1deg);
+}
+
+/* --- 3.1 RESPONSIVE SMART NAV --- */
+@media (max-width: 992px) {
+    .main-nav { padding: 10px 0; }
+    .nav-logo { width: 140px; padding: 0 15px; }
+    .nav-logo img { max-height: 60px; }
+}
+
+@media (max-width: 768px) {
+    .nav-container { padding: 0 15px; }
+    .nav-group { gap: 10px; }
+}
+
+/* ============================================================
+   4. HOME PAGE HERO & PREMIUM INTERACTIONS
+   ============================================================ */
+   .menu-hero {
+    position: relative;
+    height: 90vh; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    background: #000; 
+}
+
+/* 4.1 HERO VIDEO (OPTIMIZED SCALE) */
+.hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    transform: translate(-50%, -50%) scale(1.01); /* Lean: 1.01 is easier on the GPU */
+    object-fit: cover;
+    z-index: 1;
+}
+
+/* 4.2 TYPOGRAPHY (SYNCHRONIZED LUXURY) */
+.hero-overlay {
+    position: relative;
+    z-index: 2;
+    background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.hero-pretitle {
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 10px; /* Luxury tracking */
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    animation: fadeInDown 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.hero-overlay h1 {
+    font-family: 'Playfair Display', serif;
+    /* Prevent shrinking: using the larger clamp and letter-spacing */
+    font-size: clamp(4rem, 15vw, 7.5rem); 
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 14px; 
+    line-height: 1.1;
+    text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    margin-right: -14px; /* Centering offset */
+    animation: fadeInUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s both;
+}
+
+/* 4.3 PREMIUM BOUTIQUE BUTTON */
+.btn-primary {
+    margin-top: 45px;
+    padding: 18px 45px;
+    background: transparent;
+    border: 1px solid var(--gold); 
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+    /* Specific transitions are leaner than 'all' */
+    transition: transform 0.4s ease, box-shadow 0.4s ease, color 0.4s ease;
+    animation: fadeInUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s both;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+/* Background Slide Hover Effect */
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--gold);
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index: -1;
+}
+
+.btn-primary:hover {
+    color: #000;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(196, 164, 124, 0.2);
+}
+
+.btn-primary:hover::before {
+    transform: translateX(100%);
+}
+
+/* 4.4 CONSOLIDATED MOBILE HERO */
+@media (max-width: 768px) {
+    .menu-hero { height: 80vh; }
+    /* Keeping the title dominant on mobile */
+    .hero-overlay h1 { font-size: 3.5rem; letter-spacing: 8px; margin-right: -8px; }
+    .btn-primary { padding: 15px 35px; letter-spacing: 2px; }
+}
+
+/* ============================================================
+   5. MENU SECTION (TABS & GLASS PLAQUE)
+   ============================================================ */
+   .menu-section {
+    position: relative;
+    z-index: 10;
+    padding: 100px 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--primary-bg); /* Covers any video bleed from above */
+}
+
+/* 5.1 THE TAB SYSTEM */
+.menu-tabs {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 60px;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 40px;
+    border: 1px solid var(--glass-border);
+}
+
+.tab-btn {
+    background: transparent;
+    color: var(--text-muted);
+    border: none;
+    padding: 14px 35px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    /* Lean: Named transitions for better browser performance */
+    transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tab-btn.active {
+    background: var(--it-green);
+    color: white;
+    box-shadow: 0 10px 20px rgba(0, 140, 69, 0.3);
+}
+
+.tab-btn:hover:not(.active) {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* 5.2 THE LUXURY GLASS PLAQUE */
+.white-menu-box {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    width: 100%;
+    max-width: 850px; /* Slightly wider for elegant line lengths */
+    padding: 60px 50px;
+    border: 1px solid var(--glass-border);
+    border-radius: 4px; /* Sharp modern edges */
+    box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Internal Glow Strip */
+.white-menu-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+}
+
+/* 5.3 MENU ITEM ROWS */
+.menu-row {
+    border-left: 2px solid var(--it-green);
+    padding-left: 30px;
+    margin-bottom: 40px;
+    /* Lean: Specific transitions prevent "jitter" on hover */
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                border-color 0.4s ease;
+}
+
+.menu-row:hover {
+    border-left-color: var(--gold);
+    transform: translateX(8px);
+}
+
+.menu-row h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--gold);
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.menu-row p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* 5.4 CONSOLIDATED MOBILE MENU */
+@media (max-width: 768px) {
+    .menu-section { padding: 60px 20px; }
+    
+    .menu-tabs {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        border-radius: 15px;
+    }
+    
+    .tab-btn {
+        padding: 10px 20px;
+        font-size: 0.75rem;
+    }
+    
+    .white-menu-box {
+        padding: 40px 25px;
+    }
+    
+    .menu-row {
+        padding-left: 20px;
+    }
+}
+/* ============================================================
+   6. ABOUT PAGE (UPSCALED STORYTELLING)
+   ============================================================ */
+   .parallax-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Desktop Parallax - Note: 'fixed' has a high paint cost */
+    background-attachment: fixed; 
+    background-size: cover;
+    background-position: center;
+    /* Luxury Portal Look */
+    box-shadow: inset 0 0 200px rgba(0,0,0,0.9);
+    padding: 100px 20px;
+    overflow: hidden;
+}
+
+/* 6.1 CINEMATIC OVERLAY */
+.parallax-section::after {
+    content: '';
+    position: absolute;
+    inset: 0; /* Lean: Shorthand for top/left/right/bottom */
+    background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6));
+    z-index: 1;
+}
+
+/* 6.2 THE STORY GLASS CARD */
+.about-glass-card {
+    position: relative;
+    z-index: 10;
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(25px) saturate(150%);
+    -webkit-backdrop-filter: blur(25px) saturate(150%);
+    border: 1px solid var(--glass-border);
+    padding: 80px 60px;
+    max-width: 1000px;
+    text-align: center;
+    box-shadow: 0 50px 100px rgba(0,0,0,0.8);
+    /* GPU-accelerated entrance */
+    animation: fadeInUp 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    will-change: transform, opacity;
+}
+
+.about-glass-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem); /* Slightly larger for presence */
+    color: var(--gold);
+    margin-bottom: 15px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.about-glass-card p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--secondary);
+    opacity: 0.85;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* 6.3 ITALIAN TRI-COLORE DIVIDER */
+.it-divider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 35px 0 55px;
+}
+
+.it-divider .line { 
+    height: 3px; 
+    width: 65px; 
+    /* Lean: Specific transform transition is much smoother */
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.line.green { background: var(--it-green); border-radius: 4px 0 0 4px; }
+.line.white { background: #fff; width: 85px; } /* Dominant center */
+.line.red   { background: var(--it-red); border-radius: 0 4px 4px 0; }
+
+/* Interactive Divider Logic */
+.about-glass-card:hover .line.green { transform: translateX(-15px); }
+.about-glass-card:hover .line.red { transform: translateX(15px); }
+
+/* 6.4 CONSOLIDATED MOBILE ABOUT */
+@media (max-width: 768px) {
+    .parallax-section {
+        background-attachment: scroll; /* Critical: prevents iOS scroll lag */
+        min-height: 70vh;
+        padding: 60px 15px;
+    }
+    
+    .about-glass-card {
+        padding: 50px 25px;
+        margin: 0;
+        backdrop-filter: blur(15px); /* Slightly lighter for mobile performance */
+    }
+
+    .about-glass-card h2 { font-size: 2rem; }
+    .it-divider .line { width: 45px; }
+    .line.white { width: 60px; }
+}
+
+/* ============================================================
+   7. RESPONSIVE NAVIGATION & GLOBAL MOBILE REFINEMENT
+   ============================================================ */
+
+/* 7.1 TABLET & SMALL DESKTOP (992px) */
+@media (max-width: 992px) {
+    .nav-container { padding: 0 20px; }
+    .nav-logo { width: 140px; }
+}
+
+/* 7.2 MOBILE APP-LIKE INTERFACE (850px) */
+@media (max-width: 850px) {
+    .main-nav { padding: 15px 0; }
+    .nav-container { flex-direction: column; gap: 20px; }
+
+    .nav-logo {
+        order: -1; 
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .nav-logo img {
+        height: 55px; 
+        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+    }
+
+    .nav-group {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        width: 100%;
+        padding: 0 10px;
+    }
+
+    .nav-box {
+        min-width: unset;
+        padding: 12px 5px; 
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 6px;
+        transition: transform 0.2s ease;
+    }
+
+    .nav-box:active { transform: scale(0.95); } /* Touch feedback */
+
+    .nav-box .label {
+        font-size: 0.6rem;
+        letter-spacing: 0.5px;
+        margin-top: 5px;
+    }
+
+    .nav-icon { width: 22px; height: 22px; }
+}
+
+/* 7.3 GLOBAL MOBILE FIXES (768px) */
+@media (max-width: 768px) {
+    /* Prevent address bar jumps using svh */
+    .menu-hero, .parallax-section {
+        height: 100svh; 
+        background-attachment: scroll !important; 
+    }
+
+    /* Synchronized Luxury Typography: Keeping it Expansive */
+    .hero-overlay h1 {
+        font-size: clamp(3rem, 12vw, 4rem); 
+        letter-spacing: 6px;
+        line-height: 1.1;
+        margin-right: -6px; /* Keeping it centered */
+    }
+
+    .hero-pretitle {
+        font-size: 0.75rem;
+        letter-spacing: 6px;
+    }
+
+    .menu-category-section, .about-section, .food-gallery {
+        padding: 60px 20px;
+    }
+}
+
+/* 7.4 SMALL SMARTPHONE OPTIMIZATION (480px) */
+@media (max-width: 480px) {
+    .nav-group {
+        grid-template-columns: repeat(2, 1fr); /* 2x2 Grid for thumbs */
+        gap: 8px;
+    }
+
+    .nav-box { padding: 15px 10px; }
+
+    .hero-overlay h1 {
+        font-size: 2.6rem;
+        letter-spacing: 4px;
+    }
+    
+    .announcement-bar {
+        font-size: 0.6rem;
+        padding: 8px 10px;
+        letter-spacing: 1px;
+    }
+}
+
+/* 7.5 ACCESSIBILITY: REDUCED MOTION */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+/* ============================================================
+   8. MAP SECTION (SOPHISTICATED & INTERACTIVE)
+   ============================================================ */
+   .sophisticated-map-section {
+    position: relative;
+    width: 100%;
+    background: var(--primary-bg);
+    display: flex;
+    flex-direction: column;
+    /* Visible allows the card shadow to bleed into the next section */
+    overflow: visible; 
+    border-top: 1px solid var(--glass-border);
+    z-index: 5; 
+}
+
+/* 8.1 MAP CANVAS */
+.map-container {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    background: #0a0a0a; /* Darkest fallback */
+    overflow: hidden;
+}
+
+.map-container iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%; 
+    height: 100%;
+    border: 0;
+    /* Optimization: Use simpler filters for initial state to save GPU */
+    filter: grayscale(1) brightness(0.5);
+    opacity: 0.6;
+    /* Transition only the specific properties needed */
+    transition: opacity 0.6s ease, filter 0.6s ease;
+    pointer-events: none; 
+}
+
+.map-container:hover iframe {
+    opacity: 1;
+    filter: grayscale(0) brightness(1);
+    pointer-events: auto;
+}
+
+/* 8.2 THE FLOATING INFO PLAQUE */
+.map-floating-card {
+    position: absolute;
+    top: 50%;
+    left: 8%;
+    transform: translateY(-50%);
+    background: rgba(28, 28, 28, 0.92);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    padding: 50px 40px;
+    border-radius: 4px;
+    /* Italian Accent: Velvet Crimson */
+    border-left: 4px solid var(--it-red); 
+    color: #FFFFFF;
+    width: 400px;
+    z-index: 10;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+    /* Transition transform only for hover */
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                border-color 0.4s ease;
+}
+
+.map-floating-card:hover {
+    transform: translateY(-53%);
+    border-left-color: var(--it-green);
+}
+
+.map-floating-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+}
+
+/* 8.3 CONTACT DETAILS LIST */
+.map-details {
+    margin-top: 30px;
+    border-top: 1px solid var(--glass-border);
+    padding-top: 25px;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+.detail-item strong {
+    color: var(--gold);
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    opacity: 0.8;
+}
+
+/* 8.4 THE VELVET CRIMSON ACTION BUTTON */
+.get-directions-btn {
+    display: block;
+    text-align: center;
+    padding: 16px;
+    margin-top: 30px;
+    border: 1px solid var(--it-red);
+    color: #fff;
+    background: transparent;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 3px;
+    font-size: 0.75rem;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.get-directions-btn:hover {
+    background: var(--it-red);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(196, 49, 49, 0.3);
+}
+
+/* 8.5 CONSOLIDATED MOBILE MAP */
+@media (max-width: 850px) {
+    .map-container {
+        height: 450px;
+    }
+
+    .map-floating-card {
+        position: relative;
+        top: 0;
+        left: 0;
+        transform: none;
+        width: 100%;
+        padding: 40px 25px;
+        border-left: 0;
+        border-top: 4px solid var(--it-red);
+        background: var(--primary-bg);
+        box-shadow: none;
+        backdrop-filter: none; /* Lean: Remove blur on mobile to save battery */
+    }
+    
+    .map-floating-card:hover {
+        transform: none; /* Disable hover float on touch screens */
+    }
+}
+/* ============================================================
+   9. MENU PAGE (UPSCALED - MASTER ARCHITECTURE)
+   ============================================================ */
+   .menu-page {
+    background: var(--primary-bg);
+    color: #fff;
+    overflow: visible; 
+}
+
+/* 9.1 STICKY CATEGORY NAV (SMOKED GLASS) */
+.menu-cat-nav {
+    position: sticky; /* Standardized for modern browsers */
+    top: 0;
+    z-index: 9999;
+    padding: 15px 0;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--glass-border);
+    /* Lean: Target specific properties for smooth transition */
+    transition: background 0.4s ease, transform 0.4s ease;
+}
+
+.menu-cat-nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    gap: clamp(15px, 3vw, 40px);
+}
+
+.menu-cat-nav a {
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 0.75rem;
+    opacity: 0.5;
+    letter-spacing: 2px;
+    transition: opacity 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.menu-cat-nav a:hover, 
+.menu-cat-nav a.active {
+    opacity: 1;
+    color: var(--it-green);
+    text-shadow: 0 0 10px rgba(0, 140, 69, 0.3);
+}
+
+/* 9.2 GRID & TYPOGRAPHY */
+.menu-category-section {
+    padding: 100px 8%;
+    max-width: 1400px;
+    margin: 0 auto;
+    scroll-margin-top: 100px; /* Aligns section top perfectly below sticky nav */
+}
+
+.category-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    color: var(--it-green);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.menu-subcategory h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: var(--gold);
+    border-left: 4px solid var(--it-green);
+    padding-left: 20px;
+    margin: 60px 0 40px;
+    letter-spacing: 1px;
+}
+
+/* 9.3 THE MENU GRID & DOTTED LEADERS */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px 100px; /* Increased gutter for premium look */
+}
+
+.menu-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 20px 0;
+    transition: border-color 0.4s ease, transform 0.4s ease;
+}
+
+.menu-item:hover {
+    border-bottom-color: var(--it-green);
+    transform: translateY(-2px); /* Subtle lift */
+}
+
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.item-name {
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 1rem;
+    color: var(--secondary);
+}
+
+/* Lean: Efficient Dotted Leader */
+.item-header::after {
+    content: '';
+    flex: 1;
+    margin: 0 15px;
+    border-bottom: 1px dotted rgba(255,255,255,0.15);
+    order: 2;
+}
+
+.item-price { 
+    color: var(--it-red);
+    font-size: 1.1rem;
+    order: 3;
+}
+
+.item-desc { 
+    color: var(--text-muted); 
+    font-size: 0.88rem; 
+    font-style: italic; 
+    line-height: 1.6;
+}
+
+/* 9.4 FEATURED BANNER & IMAGES */
+.cold-sandwiches-banner {
+    grid-column: 1 / -1;
+    position: relative;
+    width: 100%;
+    margin: 80px 0;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), 
+                url('../assets/images/10.jpeg') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+    border-radius: 4px;
+    padding: 100px 60px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+}
+
+.menu-item.featured-item {
+    grid-column: span 2;
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 30px;
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+}
+
+.item-image {
+    flex: 0 0 240px;
+    height: 160px;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+.item-image img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: brightness(0.9);
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), filter 0.6s ease;
+}
+
+.featured-item:hover img {
+    transform: scale(1.05); /* Leaner scale to prevent blur */
+    filter: brightness(1.1);
+}
+
+/* 9.5 CONSOLIDATED RESPONSIVE MENU */
+@media (max-width: 992px) {
+    .menu-grid { gap: 20px 40px; }
+    .item-header::after { display: none; } /* Cleaner mobile typography */
+}
+
+@media (max-width: 768px) {
+    .menu-grid { grid-template-columns: 1fr; }
+    .menu-item.featured-item { flex-direction: column; text-align: center; }
+    .item-image { width: 100%; height: 220px; flex: none; }
+    .cold-sandwiches-banner { 
+        padding: 60px 20px; 
+        background-attachment: scroll; /* Vital: Prevents mobile scroll lag */
+    }
+}
+
+/* ============================================================
+   10. SPECIALS PAGE (UPSCALED MINIMALIST V2)
+   ============================================================ */
+
+/* 10.1 GLOBAL PAGE SETTINGS */
+.specials-page {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.85)), 
+                url('../assets/images/specials.jpeg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    color: #ffffff;
+    min-height: 100vh;
+}
+
+/* 10.2 HERO SECTION (SYNCHRONIZED LUXURY) */
+.specials-hero-v2 {
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.hero-subtitle {
+    text-transform: uppercase;
+    letter-spacing: 8px; /* High-end tracking */
+    font-size: 0.85rem;
+    color: var(--it-green);
+    font-weight: 700;
+    margin-bottom: 15px;
+    animation: fadeInDown 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.specials-hero-v2 h1 {
+    font-family: 'Playfair Display', serif;
+    /* Keeping the large, expansive typography from the Hero section */
+    font-size: clamp(3.5rem, 10vw, 6rem); 
+    font-style: italic;
+    color: #ffffff;
+    text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    animation: fadeInUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s both;
+}
+
+.it-divider-minimal {
+    width: 100px;
+    height: 1px; /* Thinner for elegance */
+    background: linear-gradient(90deg, transparent, var(--it-red), transparent);
+    margin: 25px auto;
+}
+
+/* 10.3 SPECIALS CONTAINER & GLASS WRAPPER */
+.specials-container-v2 {
+    max-width: 1100px;
+    margin: -100px auto 100px auto; 
+    padding: 0 25px;
+    position: relative;
+    z-index: 10;
+}
+
+.specials-wrapper {
+    background: rgba(15, 15, 15, 0.75); 
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid var(--glass-border);
+    padding: 60px;
+    border-radius: 4px;
+    box-shadow: 0 50px 100px rgba(0,0,0,0.6);
+}
+
+/* 10.4 MODERN SPECIAL CARD */
+.special-card {
+    display: flex;
+    padding: 50px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    /* GPU-friendly transitions */
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                background 0.4s ease;
+    position: relative;
+}
+
+.special-card:hover {
+    transform: translateX(10px);
+}
+
+.special-card:last-child { border-bottom: none; }
+
+.card-left { flex: 0 0 220px; }
+
+.day {
+    display: block;
+    font-size: 2rem;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 1px;
+}
+
+.date {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--text-muted);
+}
+
+.card-right {
+    flex: 1;
+    padding-left: 50px;
+    border-left: 1px solid rgba(0, 140, 69, 0.2); 
+    transition: border-left 0.4s ease;
+}
+
+.special-card:hover .card-right {
+    border-left-color: var(--it-green);
+}
+
+.item-main h3 {
+    font-size: 2rem;
+    font-family: 'Playfair Display', serif;
+    margin: 0;
+    font-weight: 400;
+}
+
+.time {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--gold);
+}
+
+.pricing {
+    margin-top: 15px;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+}
+
+.pricing b {
+    color: var(--it-green);
+    font-size: 1.25rem;
+}
+
+/* 10.5 DYNAMIC "TODAY" HIGHLIGHT */
+.special-card.is-today {
+    background: rgba(0, 132, 68, 0.08); /* Sophisticated tint */
+    border-left: 4px solid var(--it-green);
+    padding-left: 20px; /* Offset for the thicker border */
+    margin-left: -20px;
+}
+
+.special-card.is-today .day {
+    color: var(--it-green);
+}
+
+/* 10.6 RESPONSIVE SPECIALS */
+@media (max-width: 768px) {
+    .specials-hero-v2 { height: 50svh; }
+    .specials-hero-v2 h1 { font-size: 3rem; }
+    .specials-page { background-attachment: scroll; } /* Mobile performance */
+    
+    .specials-wrapper { padding: 40px 25px; }
+    
+    .special-card { flex-direction: column; padding: 40px 0; }
+    .special-card:hover { transform: none; }
+    
+    .card-right { 
+        padding-left: 0; 
+        border-left: none; 
+        border-top: 1px solid var(--it-green); 
+        margin-top: 25px; 
+        padding-top: 25px;
+    }
+    
+    .specials-container-v2 { margin-top: -60px; }
+}
+
+/* ============================================================
+   11. RESERVATIONS PAGE (UPSCALED CONCIERGE)
+   ============================================================ */
+
+/* 11.1 GLOBAL PAGE & BACKGROUND */
+.reserve-page {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.85)), 
+                url('../assets/images/6.jpeg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 11.2 THE CONCIERGE GLASS PANEL */
+.reserve-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 20px; /* More breathing room for the "Concierge" feel */
+}
+
+.reserve-glass-panel {
+    background: rgba(10, 10, 10, 0.75);
+    backdrop-filter: blur(30px) saturate(160%);
+    -webkit-backdrop-filter: blur(30px) saturate(160%);
+    border: 1px solid var(--glass-border);
+    max-width: 750px; 
+    width: 100%;
+    padding: 70px 60px;
+    text-align: center;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+    position: relative;
+    overflow: hidden;
+    /* GPU-accelerated entrance */
+    animation: fadeInUp 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Luxury Top-Light Accent */
+.reserve-glass-panel::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.reserve-glass-panel h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    color: var(--gold);
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+}
+
+/* 11.3 MINIMALIST FORM ARCHITECTURE */
+.vinny-form {
+    text-align: left;
+    margin-top: 45px;
+}
+
+.form-group {
+    margin-bottom: 35px;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+    color: var(--gold);
+    font-weight: 700;
+}
+
+.vinny-form input, 
+.vinny-form select, 
+.vinny-form textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.03);
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 15px 5px;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    border-radius: 0;
+    /* Transition only specific properties for 60fps performance */
+    transition: border-color 0.4s ease, background 0.4s ease, transform 0.4s ease;
+}
+
+.vinny-form input:focus, 
+.vinny-form select:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.07);
+    border-bottom-color: var(--it-green);
+    /* Kinetic "Nudge" using transform instead of padding for stability */
+    transform: translateX(5px); 
+}
+
+.form-row.split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+/* 11.4 THE ITALIAN "FLAG FILL" BUTTON */
+.vinny-btn {
+    width: 100%;
+    background: transparent;
+    color: #fff;
+    border: 1px solid var(--it-green);
+    padding: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    margin-top: 20px;
+    z-index: 1;
+}
+
+.vinny-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--it-green);
+    transform: translateX(-101%);
+    transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1), background 0.5s ease;
+    z-index: -1;
+}
+
+.vinny-btn:hover::after {
+    transform: translateX(0);
+    background: var(--it-red); /* Transitions from Green to Red during the fill */
+}
+
+.vinny-btn:hover {
+    border-color: var(--it-red);
+    box-shadow: 0 15px 35px rgba(205, 33, 42, 0.25);
+    color: #fff;
+}
+
+/* 11.5 CONSOLIDATED MOBILE RESERVATIONS */
+@media (max-width: 768px) {
+    .reserve-page { background-attachment: scroll; } /* Vital performance fix */
+    
+    .reserve-container { padding: 80px 15px; }
+
+    .reserve-glass-panel {
+        padding: 50px 25px;
+        backdrop-filter: blur(15px); /* Lighter blur for mobile CPU */
+    }
+    
+    .form-row.split {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    
+    .vinny-form input:focus { transform: none; } /* Disable nudge for narrow screens */
+}
+
+/* ============================================================
+   12. PRIVATE PARTIES (UPSCALED EVENT SUITE)
+   ============================================================ */
+   .parties-page {
+    background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.9)), 
+                url('../assets/images/resrvations.jpeg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 12.1 THE GRAND EVENT PANEL */
+.parties-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 20px;
+}
+
+/* Shared Glass Logic + Unique Event Styling */
+.parties-page .reserve-glass-panel {
+    max-width: 850px; 
+    background: rgba(10, 10, 10, 0.82); /* Slightly denser for elite feel */
+    backdrop-filter: blur(35px) saturate(180%);
+    -webkit-backdrop-filter: blur(35px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    padding: 80px 60px;
+    box-shadow: 0 50px 100px rgba(0,0,0,0.7);
+    position: relative;
+    /* Gold Crown for high-ticket events */
+    border-top: 3px solid var(--gold); 
+}
+
+.parties-page .reserve-glass-panel h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 3.8rem);
+    font-style: italic; 
+    color: var(--gold);
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+}
+
+.parties-page .reserve-intro {
+    font-size: 1.15rem;
+    color: var(--secondary);
+    max-width: 600px;
+    margin: 0 auto 50px auto;
+    line-height: 1.8;
+}
+
+/* 12.2 EVENT FORM GRID ARCHITECTURE */
+.parties-page .vinny-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px 45px; /* Deeper gutters for better scannability */
+}
+
+/* Specific Section Labels within the Form */
+.parties-page .form-section-label {
+    grid-column: span 2;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--it-green);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 12px;
+    margin-top: 15px;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+}
+
+/* Utility: Spanning Logic */
+.parties-page .form-group.full-width,
+.parties-page .vinny-btn {
+    grid-column: span 2;
+}
+
+/* 12.3 EVENT INQUIRY BUTTON (SHIMMER) */
+.parties-page .vinny-btn {
+    background: transparent;
+    border: 1px solid var(--it-green);
+    color: #fff;
+    padding: 22px;
+    font-size: 0.95rem;
+    letter-spacing: 6px;
+    margin-top: 40px;
+    position: relative;
+    overflow: hidden;
+    /* Target specific properties for performance */
+    transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    z-index: 1;
+}
+
+.parties-page .vinny-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--it-green);
+    transform: translateX(-101%);
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index: -1;
+}
+
+.parties-page .vinny-btn:hover::after {
+    transform: translateX(0);
+}
+
+.parties-page .vinny-btn:hover {
+    box-shadow: 0 15px 35px rgba(0, 140, 69, 0.25);
+    transform: translateY(-3px); /* Interactive lift */
+}
+
+/* 12.4 MOBILE EVENT POLISH */
+@media (max-width: 850px) {
+    .parties-page { background-attachment: scroll; }
+    
+    .parties-page .vinny-form {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .parties-page .form-group.full-width,
+    .parties-page .vinny-btn,
+    .parties-page .form-section-label {
+        grid-column: span 1;
+    }
+
+    .parties-page .reserve-glass-panel {
+        padding: 50px 25px;
+        margin-top: 40px;
+    }
+    
+    .parties-page .vinny-btn:hover { transform: none; } /* Stability on touch */
+}
+
+/* ============================================================
+   13. CATERING PAGE (UPSCALED LOGISTICS PORTAL)
+   ============================================================ */
+   .catering-page {
+    /* Warm gradient to enhance food photography */
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.85)), 
+                url('../assets/images/catering.png') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 13.1 CATERING GLASS PANEL (TRICOLORE DETAIL) */
+.catering-page .reserve-glass-panel {
+    max-width: 750px;
+    background: rgba(12, 12, 12, 0.8);
+    backdrop-filter: blur(25px) saturate(170%);
+    -webkit-backdrop-filter: blur(25px) saturate(170%);
+    border: 1px solid var(--glass-border);
+    padding: 70px 50px;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+    position: relative;
+    /* Italian Brand Anchor: Green */
+    border-bottom: 4px solid var(--it-green); 
+}
+
+.catering-page .reserve-glass-panel h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    letter-spacing: 2px;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.catering-page .reserve-glass-panel h2 span {
+    color: var(--gold); /* Highlight key catering terms */
+}
+
+.catering-page .reserve-intro {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    font-weight: 600;
+}
+
+/* 13.2 MODERN CATERING FORM FIELDS */
+.catering-page .vinny-form input, 
+.catering-page .vinny-form select, 
+.catering-page .vinny-form textarea {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 4px; /* Modern "App" feel radius */
+    margin-bottom: 10px;
+    transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.catering-page .vinny-form input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.06);
+    border-color: var(--gold); /* Catering specific gold focus */
+    box-shadow: 0 0 15px rgba(196, 164, 124, 0.15);
+}
+
+/* 13.3 DUAL-COLOR ACTION BUTTON */
+.catering-page .vinny-btn {
+    background: var(--it-green);
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    padding: 22px;
+    cursor: pointer;
+    /* Smooth color shift transition */
+    transition: background 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+    width: 100%;
+    text-transform: uppercase;
+}
+
+.catering-page .vinny-btn:hover {
+    background: var(--it-red); /* Dramatic shift to Italian Red */
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(205, 33, 42, 0.3);
+}
+
+/* 13.4 MOBILE LOGISTICS OPTIMIZATION */
+@media (max-width: 768px) {
+    .catering-page { background-attachment: scroll; }
+    
+    .catering-page .reserve-glass-panel {
+        padding: 50px 25px;
+        margin: 20px;
+    }
+    
+    .catering-page .reserve-glass-panel h2 {
+        font-size: 1.8rem;
+    }
+    
+    .catering-page .vinny-btn:hover {
+        transform: none; /* Stabilize for touch interaction */
+    }
+}
+/* ==========================================================================
+   SECTION 14: ABOUT / OUR STORY (UPSCALED EDITORIAL)
+   ========================================================================== */
+   .about-section {
+    padding: 120px 5% 40px 5%; /* Tightened bottom for better flow */
+    background: var(--primary-bg);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 14.1 TEXTURE & LAYOUT */
+.about-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+    opacity: 0.08;
+    pointer-events: none;
+}
+
+.about-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: clamp(40px, 8vw, 100px);
+}
+
+/* 14.2 THE "HEIRLOOM" IMAGE FRAME */
+.about-image {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+}
+
+.about-image img {
+    width: 100%;
+    display: block;
+    filter: sepia(15%) contrast(1.1) brightness(0.9);
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* The Offset Frame */
+.about-image::after {
+    content: '';
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    right: -30px;
+    bottom: -30px;
+    border: 2px solid var(--it-green);
+    z-index: -1;
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), border-color 0.4s ease;
+}
+
+.about-image:hover img {
+    transform: translate(-15px, -15px);
+}
+
+.about-image:hover::after {
+    transform: translate(10px, 10px);
+    border-color: var(--gold);
+}
+
+/* 14.3 EDITORIAL CONTENT */
+.about-content {
+    flex: 1;
+    position: relative;
+}
+
+.about-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin: 0 0 30px 0;
+    line-height: 1.1;
+    color: var(--gold);
+}
+
+/* The Drop-Cap Effect */
+.about-content p:first-of-type::first-letter {
+    font-family: 'Playfair Display', serif;
+    float: left;
+    font-size: 5rem;
+    line-height: 0.75;
+    padding: 8px 15px 0 0;
+    color: var(--it-green);
+    font-weight: 700;
+}
+
+.about-content p {
+    font-size: 1.1rem;
+    line-height: 1.9;
+    color: var(--secondary);
+    margin-bottom: 30px;
+    letter-spacing: 0.3px;
+}
+
+.about-signature {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.8rem;
+    color: var(--gold);
+    margin-top: 40px;
+    display: block;
+    opacity: 0.9;
+}
+
+/* 14.4 RESPONSIVE EDITORIAL */
+@media (max-width: 992px) {
+    .about-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-image {
+        width: 80%;
+        margin-bottom: 80px;
+    }
+
+    .about-image::after {
+        top: 20px; left: 20px; right: -20px; bottom: -20px;
+    }
+
+    /* Reset Drop-cap for mobile center alignment */
+    .about-content p:first-of-type::first-letter {
+        float: none;
+        padding: 0;
+        font-size: 4rem;
+        display: block;
+        margin: 0 auto 15px auto;
+    }
+}
+/* ============================================================
+   15. REVIEWS (UPSCALED SOCIAL PROOF)
+   ============================================================ */
+   .reviews-section {
+    background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.9)), 
+                url('../assets/images/Revews-1.png') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+    padding: 120px 5%;
+    text-align: center;
+    position: relative;
+    border-top: 1px solid var(--glass-border);
+}
+
+.reviews-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: var(--gold);
+    margin-bottom: 10px;
+}
+
+.reviews-section .subtitle {
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-size: 0.8rem;
+    color: var(--secondary);
+    opacity: 0.6;
+}
+
+/* 15.1 REVIEWS GRID ARCHITECTURE */
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
+    margin: 60px auto 0 auto;
+    max-width: 1300px;
+}
+
+.review-card {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(25px) saturate(150%);
+    -webkit-backdrop-filter: blur(25px) saturate(150%);
+    padding: 60px 40px;
+    border: 1px solid var(--glass-border);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    /* GPU-optimized transitions */
+    transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                background 0.4s ease, 
+                border-color 0.4s ease, 
+                box-shadow 0.5s ease;
+}
+
+/* 15.2 THE DECORATIVE "ITALIAN" QUOTE */
+.review-card::before {
+    content: '"';
+    position: absolute;
+    top: -25px;
+    left: 15px;
+    font-family: 'Playfair Display', serif;
+    font-size: 9rem;
+    color: var(--it-green);
+    opacity: 0.05;
+    transition: transform 0.6s ease, opacity 0.6s ease;
+    pointer-events: none; /* Prevents selecting the quote instead of text */
+}
+
+.review-card:hover {
+    transform: translateY(-15px);
+    background: rgba(255, 255, 255, 0.04);
+    border-color: var(--it-red); /* Italian Red hover accent */
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+}
+
+.review-card:hover::before {
+    opacity: 0.12;
+    transform: translateY(15px) rotate(-10deg);
+}
+
+/* 15.3 TYPOGRAPHY & RATINGS */
+.stars {
+    color: var(--it-green);
+    margin-bottom: 25px;
+    font-size: 0.9rem;
+    letter-spacing: 4px;
+    /* High-end jewel glisten */
+    text-shadow: 0 0 12px rgba(0, 132, 68, 0.4);
+}
+
+.review-card p {
+    font-size: 1.05rem;
+    font-style: italic;
+    line-height: 1.8;
+    color: var(--secondary);
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 2; /* Sits above the decorative quote */
+}
+
+.reviewer {
+    display: block;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    color: var(--gold);
+}
+
+.reviewer::before {
+    content: '— ';
+    color: var(--it-red);
+}
+
+/* 15.4 MOBILE SOCIAL PROOF */
+@media (max-width: 768px) {
+    .reviews-section { 
+        padding: 80px 20px; 
+        background-attachment: scroll; /* Vital for mobile scroll performance */
+    }
+    .review-card { padding: 40px 30px; }
+    .review-card:hover { transform: translateY(-5px); }
+    .review-card::before { font-size: 6rem; top: -15px; }
+}
+/* ============================================================
+   16. FOOD GALLERY (UPSCALED BOUTIQUE GRID)
+   ============================================================ */
+   .food-gallery {
+    padding: 120px 5% 80px;
+    background: radial-gradient(circle at center, #0a0a0a 0%, #050505 100%);
+    clear: both;
+}
+
+.gallery-header {
+    text-align: left;
+    margin-bottom: 80px;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.gallery-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    color: #fff;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin: 0;
+}
+
+.gallery-header .it-green-line {
+    width: 60px;
+    height: 4px;
+    background: var(--it-green);
+    margin-top: 20px;
+}
+
+/* 16.1 MASONRY GRID ARCHITECTURE */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 320px; /* Slightly taller for impact */
+    gap: 25px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    background: #000;
+    border-radius: 4px;
+    /* GPU-Friendly fix for overflow:hidden + border-radius bug */
+    mask-image: radial-gradient(white, black);
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.8) contrast(1.1);
+    /* Ultra-smooth long-duration transition */
+    transition: transform 1.5s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                filter 0.8s ease;
+    will-change: transform; /* Hint to browser for 60fps */
+}
+
+/* Masonry Spanning Logic */
+.gallery-item.large { grid-column: span 2; grid-row: span 2; }
+.gallery-item.tall { grid-row: span 2; }
+
+/* 16.2 THE CRYSTAL OVERLAY */
+.item-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0);
+    z-index: 2;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), background 0.5s ease;
+}
+
+.item-overlay span {
+    color: #fff;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(0.95rem, 1.5vw, 1.3rem);
+    font-style: italic;
+    letter-spacing: 2px;
+    padding: 18px 40px;
+    background: rgba(10, 10, 10, 0.65);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.4s ease;
+}
+
+/* 16.3 INTERACTION DYNAMICS */
+.gallery-item:hover img { 
+    transform: scale(1.1); 
+    filter: brightness(1) contrast(1.2); 
+}
+
+.gallery-item:hover .item-overlay { 
+    opacity: 1;
+    transform: translateY(0);
+    background: rgba(0, 0, 0, 0.35); 
+}
+
+.gallery-item:hover .item-overlay span {
+    transform: scale(1.05);
+    border-color: var(--it-green);
+}
+
+/* 16.4 RESPONSIVE GALLERY REPAIR */
+@media (max-width: 1024px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 280px;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 600px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .gallery-item.large, .gallery-item.tall {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+
+    .gallery-header { margin-bottom: 40px; }
+    
+    /* Touch-friendly: Always visible text for mobile */
+    .item-overlay {
+        opacity: 1;
+        transform: translateY(0);
+        background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+        align-items: flex-end;
+        padding-bottom: 20px;
+    }
+    
+    .item-overlay span {
+        background: transparent;
+        border: none;
+        backdrop-filter: none;
+        box-shadow: none;
+        font-size: 1.1rem;
+    }
+}
+
+/* ============================================================
+   17. SIGNATURE FOOTER (LEGACY & BRANDING)
+   ============================================================ */
+   .site-footer {
+    /* Graphite gradient for depth without pure black "crushing" */
+    background: radial-gradient(circle at top, #111 0%, #050505 100%);
+    color: #ffffff;
+    padding: 100px 5% 40px;
+    border-top: 1px solid rgba(205, 33, 42, 0.15); /* Faint Crimson hint */
+    position: relative;
+    overflow: hidden;
+}
+
+.footer-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 80px;
+}
+
+/* 17.1 BRAND COLUMN */
+.footer-col.brand-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+}
+
+.footer-logo {
+    height: 65px;
+    margin-bottom: 25px;
+    object-fit: contain;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
+}
+
+.footer-col p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+    max-width: 400px;
+}
+
+.footer-socials {
+    display: flex;
+    gap: 15px;
+    margin-top: 35px;
+}
+
+.social-link {
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(205, 33, 42, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--gold) !important;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                background 0.3s ease, 
+                color 0.3s ease;
+    text-decoration: none;
+}
+
+.social-link:hover {
+    background: var(--it-red);
+    color: #ffffff !important;
+    border-color: var(--it-red);
+    transform: translateY(-5px) scale(1.05);
+}
+
+/* 17.2 NAVIGATION & BUTTON GRID */
+.footer-col h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--gold);
+    margin-bottom: 35px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    position: relative;
+}
+
+.footer-col h4::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 35px;
+    height: 2px;
+    background: var(--it-green);
+}
+
+.footer-link-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.footer-btn {
+    display: block;
+    text-align: center;
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    color: #ffffff !important;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.4s ease;
+    backdrop-filter: blur(5px);
+}
+
+.footer-btn:hover {
+    background: var(--it-red);
+    border-color: var(--it-red);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(205, 33, 42, 0.2);
+}
+
+/* 17.3 TIME & LOCATION DETAILS */
+.footer-hours {
+    margin-top: 5px;
+}
+
+.footer-hours p {
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    color: var(--secondary);
+    display: flex;
+    align-items: baseline;
+}
+
+.footer-hours span {
+    color: var(--gold);
+    font-weight: 700;
+    width: 100px; /* Fixed width for alignment */
+    flex-shrink: 0;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+}
+
+/* 17.4 LEGAL BOTTOM BAR */
+.footer-bottom {
+    margin-top: 80px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+}
+
+.footer-legal a {
+    color: inherit;
+    text-decoration: none;
+    margin-left: 20px;
+    transition: color 0.3s ease;
+}
+
+.footer-legal a:hover {
+    color: var(--it-red);
+}
+/* 17.5 MOBILE ADAPTATION - UNIFIED CATERING & FOOTER FIX */
+@media (max-width: 992px) {
+    /* --- CATERING & MENU STACKING --- */
+    .catering-item, 
+    .menu-item-header { 
+        display: flex;
+        flex-direction: column !important; 
+        align-items: flex-start !important;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .catering-item h3, .item-name {
+        width: 100% !important;
+        font-size: 1.2rem;
+        margin: 0;
+        text-align: left;
+    }
+
+    .catering-price, .item-price {
+        width: 100% !important;
+        text-align: left;
+        color: var(--gold);
+        font-weight: 700;
+        display: block; 
+    }
+
+    .item-dots { display: none !important; }
+
+    /* --- FOOTER CENTER & STRAIGHTEN --- */
+    .site-footer {
+        padding: 60px 20px 30px;
+        text-align: center;
+    }
+
+    .footer-container {
+        display: flex; 
+        flex-direction: column;
+        align-items: center; /* This is the "Straighten" magic */
+        gap: 50px;
+    }
+
+    .footer-col {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centers logo and text */
+        text-align: center;
+    }
+
+    .footer-col p {
+        margin: 0 auto !important;
+        max-width: 320px;
+    }
+
+    .footer-col h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    /* --- GLOBAL MOBILE LINK FIXES --- */
+    /* Prevents the "Blue Link" issue on iPhone */
+    a, a:visited, [href^="tel"] {
+        color: inherit !important;
+        text-decoration: none;
+    }
+
+    .footer-legal {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .footer-legal a {
+        color: rgba(255, 255, 255, 0.8) !important;
+        margin: 0 !important;
+        font-size: 0.8rem;
+    }
+}
+/* ============================================================
+   18. LEGAL TERMS (BOUTIQUE FIX)
+   ============================================================ */
+
+/* 18.1 PAGE WRAPPER & GRAPHITE DEPTH */
+.legal-page-wrapper {
+    background: radial-gradient(circle at top, #1a1a1a 0%, var(--primary-bg) 100%); 
+    padding-bottom: 120px;
+    min-height: 100vh;
+}
+
+/* 18.2 THE "LEGAL CONCIERGE" GLASS CARD */
+.legal-glass-card {
+    margin-top: -120px; /* Pulls up into the Hero/Header area */
+    background: rgba(20, 20, 20, 0.98); 
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid var(--glass-border);
+    padding: 80px 60px;
+    box-shadow: 0 50px 100px rgba(0, 0, 0, 0.9);
+    position: relative;
+    z-index: 5;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 18.3 BOUTIQUE LEGAL TYPOGRAPHY */
+.legal-body h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--it-red); /* Velvet Crimson Branding */
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    border-bottom: 1px solid rgba(205, 33, 42, 0.2);
+    padding-bottom: 25px;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+}
+
+.legal-body h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold); /* Gold Accent for Section Titles */
+    font-size: 1.3rem;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.legal-body p {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--secondary); /* Swapped from muted for better contrast on dark bg */
+    line-height: 2.1;
+    margin-bottom: 30px;
+    font-size: 1.05rem;
+    opacity: 0.9;
+}
+
+/* 18.4 LIST STYLING (FOR TERMS) */
+.legal-body ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 30px;
+}
+
+.legal-body li {
+    color: var(--secondary);
+    margin-bottom: 15px;
+    padding-left: 25px;
+    position: relative;
+    line-height: 1.8;
+}
+
+.legal-body li::before {
+    content: '•';
+    color: var(--it-green);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+/* 18.5 RESPONSIVE LEGAL */
+@media (max-width: 768px) {
+    .legal-glass-card {
+        margin-top: -60px;
+        padding: 50px 25px;
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+    
+    .legal-body h2 { font-size: 1.8rem; }
+    .legal-body h3 { font-size: 1.1rem; }
+}
+
+/* ============================================================
+   19. JOBS & CAREERS (UPSCALED TALENT PORTAL)
+   ============================================================ */
+
+/* 19.1 CAREERS HERO ARCHITECTURE */
+.jobs-hero {
+    height: 65vh;
+    background: linear-gradient(rgba(20, 20, 20, 0.75), rgba(10, 10, 10, 0.95)), 
+                url('../assets/images/kitchen-bg.jpg') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 5%;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.jobs-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 8vw, 4.8rem);
+    color: var(--gold);
+    margin: 10px 0;
+    letter-spacing: -1px;
+}
+
+.jobs-hero p {
+    max-width: 650px;
+    margin: 25px auto;
+    color: var(--secondary);
+    line-height: 1.9;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}
+
+/* 19.2 CULTURAL VALUES GRID (Responsive Layout) */
+.jobs-values {
+    display: grid;
+    /* auto-fit ensures the grid handles all screen sizes without specific breakpoints */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 35px;
+    max-width: 1300px;
+    margin: -100px auto 100px; /* Overlaps Hero for premium depth */
+    padding: 0 25px;
+    position: relative;
+    z-index: 10;
+}
+
+.value-card {
+    background: rgba(30, 30, 30, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 50px 40px;
+    border-radius: 4px;
+    border: 1px solid var(--glass-border);
+    text-align: center;
+    transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                box-shadow 0.5s ease, 
+                border-color 0.4s ease;
+}
+
+.value-card:hover { 
+    transform: translateY(-12px); 
+    border-color: var(--it-green);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+}
+
+.value-icon { 
+    font-size: 2.8rem; 
+    display: block; 
+    margin-bottom: 25px; 
+    filter: drop-shadow(0 0 10px rgba(196, 164, 124, 0.2));
+}
+
+.value-card h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 1.2rem;
+}
+
+.value-card p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+/* 19.3 OPEN POSITIONS */
+.open-positions {
+    max-width: 1000px;
+    margin: 0 auto 120px;
+    padding: 0 25px;
+}
+
+.open-positions h2 {
+    font-family: 'Playfair Display', serif;
+    color: #fff;
+    text-align: center;
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 60px;
+    position: relative;
+}
+
+.open-positions h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--it-red);
+    margin: 20px auto 0;
+}
+
+.job-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 40px;
+    border-radius: 4px;
+    margin-bottom: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.4s ease, border-color 0.4s ease, background 0.4s ease;
+}
+
+.job-item:hover {
+    border-color: var(--it-red);
+    background: rgba(255, 255, 255, 0.04);
+    transform: scale(1.01);
+}
+
+.job-info h3 {
+    color: var(--gold);
+    margin: 0 0 8px 0;
+    font-size: 1.6rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.job-info span {
+    display: inline-block;
+    font-size: 0.8rem;
+    color: var(--it-red);
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 3px;
+    margin-bottom: 15px;
+}
+
+.job-info p {
+    color: var(--secondary);
+    font-size: 1rem;
+    max-width: 550px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* 19.4 APPLY BUTTON (Mobile Optimized) */
+.apply-btn {
+    padding: 18px 40px;
+    background: transparent;
+    border: 1px solid var(--it-red);
+    color: #fff !important;
+    text-decoration: none !important;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    white-space: nowrap;
+}
+
+.apply-btn:hover {
+    background: var(--it-red);
+    box-shadow: 0 15px 30px rgba(205, 33, 42, 0.3);
+    transform: translateY(-3px);
+}
+
+/* 19.5 MOBILE TALENT VIEW (Critical Breakpoint) */
+@media (max-width: 850px) {
+    .job-item {
+        flex-direction: column;
+        text-align: center;
+        padding: 40px 25px;
+    }
+    
+    .job-info { margin-bottom: 30px; }
+    
+    .job-info p {
+        max-width: 100%; /* Allows text to span full width on small screens */
+    }
+
+    .jobs-hero { 
+        height: auto;
+        padding: 120px 20px 140px; 
+    }
+    
+    .jobs-values { 
+        margin-top: -80px;
+        gap: 20px;
+    }
+
+    .apply-btn {
+        width: 100%; /* Easy to tap on mobile */
+        display: block;
+    }
+}

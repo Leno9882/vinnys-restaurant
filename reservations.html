@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservations | Vinny's Ristorante</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+</head>
+<body class="reserve-page">
+
+    <nav class="menu-cat-nav sticky-nav">
+        <ul>
+            <li><a href="index.html">VINNY'S</a></li>
+            <li><a href="menu.html">MENU</a></li>
+            <li><a href="specials.html">SPECIALS</a></li>
+            <li><a href="reservations.html" class="active">RESERVE</a></li>
+            <li><a href="parties.html">PARTIES</a></li>
+        </ul>
+    </nav>
+
+    <main class="reserve-container">
+        <div class="reserve-glass-panel">
+            <header class="reserve-header">
+                <span class="hero-subtitle">Book Your Table</span>
+                <h1>Reservations</h1>
+                <div class="it-divider-minimal"></div>
+                <p class="reserve-intro">To make a reservation, please fill out the form below. For parties larger than 6, please visit our <a href="parties.html">Private Events</a> page.</p>
+            </header>
+
+            <form class="vinny-form" id="res-form">
+                <div class="form-row split">
+                    <div class="form-group">
+                        <label>Number of Guests</label>
+                        <select id="res-guests" required>
+                            <option value="1">1 Person</option>
+                            <option value="2">2 People</option>
+                            <option value="3">3 People</option>
+                            <option value="4">4 People</option>
+                            <option value="5">5 People</option>
+                            <option value="6">6 People</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Occasion</label>
+                        <select id="res-occasion">
+                            <option value="Regular Dining">None / Regular Dining</option>
+                            <option value="Birthday">Birthday</option>
+                            <option value="Anniversary">Anniversary</option>
+                            <option value="Date Night">Date Night</option>
+                            <option value="Farewell">Going Away / Farewell</option>
+                            <option value="Celebration">General Celebration</option>
+                        </select>
+                    </div>
+                </div>
+            
+                <div class="form-row split">
+                    <div class="form-group">
+                        <label>Select Date</label>
+                        <input type="date" id="res-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Select Time</label>
+                        <select id="res-time" required>
+                            <option value="5:00 PM">5:00 PM</option>
+                            <option value="6:00 PM">6:00 PM</option>
+                            <option value="7:00 PM">7:00 PM</option>
+                            <option value="8:00 PM">8:00 PM</option>
+                        </select>
+                    </div>
+                </div>
+            
+                <div class="form-row split">
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" id="res-name" placeholder="Full Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" id="res-phone" placeholder="(617) 000-0000" required>
+                    </div>
+                </div>
+            
+                <button type="submit" class="vinny-btn">Find a Table</button>
+            </form>
+              
+        </div> 
+    </main>
+
+    <footer class="site-footer" style="background-color: #151515; padding: 80px 0 40px; border-top: 1px solid rgba(255, 255, 255, 0.05); font-family: 'Montserrat', sans-serif; color: #fff;">
+        <style>
+            /* This CSS only lives inside this footer instance */
+            .site-footer a { color: rgba(255, 255, 255, 0.6) !important; text-decoration: none !important; transition: 0.3s ease !important; }
+            .site-footer a:hover { color: #d4af37 !important; }
+            .footer-nav-link { font-size: 13px; margin-bottom: 12px; letter-spacing: 1px; display: block; }
+            .legal-link-bottom { font-size: 12px; margin: 0 15px; text-transform: uppercase; letter-spacing: 1px; }
+            
+            .footer-logo-img {
+                height: 65px; 
+                width: auto; /* Prevents horizontal stretching */
+                object-fit: contain; /* Ensures the image fits the box without distortion */
+                margin-bottom: 20px;
+                display: block;
+            }
+    
+            @media (max-width: 768px) {
+                .footer-container { grid-template-columns: 1fr !important; text-align: center; }
+                .footer-logo-img { margin: 0 auto 20px; }
+            }
+        </style>
+    
+        <div class="footer-container" style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 60px; padding: 0 30px;">
+            <div class="footer-col">
+                <a href="index.html">
+                    <img src="assets/images/Logo.png" alt="Vinny's Ristorante" class="footer-logo-img">
+                </a>
+                <p style="font-size: 14px; line-height: 1.8; color: rgba(255, 255, 255, 0.7);">Authentic Sicilian cuisine in the heart of Somerville since 1969. A local legacy of flavor and tradition.</p>
+            </div>
+    
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <div class="footer-link-grid">
+                    <a href="menu.html" class="footer-btn">THE MENU</a>
+                    <a href="reservasions.html" class="footer-btn">RESERVATIONS</a>
+                    <a href="catering.html" class="footer-btn">CATERING</a>
+                    <a href="specials.html" class="footer-btn">SPECIALS</a>
+                </div>
+            </div>
+    
+            <div class="footer-col">
+                <h4 style="color: #c43131; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; font-family: 'Playfair Display', serif;">Visit Us</h4>
+                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); line-height: 1.6;">
+                    76 BROADWAY<br>
+                    SOMERVILLE, MA 02145<br>
+                    <span style="display: block; margin-top: 10px; color: #fff;">(617) 628-9214</span>
+                </p>
+            </div>
+        </div>
+    
+        <div class="footer-bottom" style="margin-top: 60px; padding: 40px 20px 0; border-top: 1px solid rgba(255, 255, 255, 0.05); text-align: center;">
+            <p style="font-size: 11px; color: rgba(255, 255, 255, 0.3); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;">© 2026 VINNY'S RISTORANTE. ALL RIGHTS RESERVED.</p>
+            <div class="footer-legal">
+                <a href="terms.html" class="legal-link-bottom">Terms</a>
+                <a href="privacy.html" class="legal-link-bottom">Privacy</a>
+                <a href="jobs.html" class="legal-link-bottom">Careers</a>
+            </div>
+            <div style="margin-top: 40px; font-size: 10px; color: rgba(255, 255, 255, 0.15); letter-spacing: 1px; text-transform: uppercase;">
+                Customized Design, Development & Maintenance by 
+                <a href="https://lenoper.com/" style="color: rgba(255, 255, 255, 0.3) !important; font-weight: 700;">Lenoper Technologies, Inc.</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

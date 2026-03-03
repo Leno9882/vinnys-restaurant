@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catering | Vinny's Ristorante</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <style>
+        /* Footer Specific Styling for Sub-pages */
+        .main-footer {
+            background-color: #151515;
+            padding: 80px 0 40px;
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            padding: 0 20px;
+            text-align: center;
+        }
+        .footer-brand img { height: 60px; margin-bottom: 20px; }
+        .footer-header {
+            font-family: 'Playfair Display', serif;
+            color: #c43131; /* Velvet Crimson */
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .footer-links { list-style: none; padding: 0; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { 
+            color: rgba(255,255,255,0.6); 
+            text-decoration: none; 
+            transition: color 0.3s; 
+            font-size: 14px;
+        }
+        .footer-links a:hover { color: #d4af37; }
+        .footer-bottom {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            text-align: center;
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body class="catering-page">
+
+    <nav class="menu-cat-nav sticky-nav">
+        <ul>
+            <li><a href="index.html">VINNY'S</a></li>
+            <li><a href="menu.html">MENU</a></li>
+            <li><a href="specials.html">SPECIALS</a></li>
+            <li><a href="reservations.html">RESERVE</a></li>
+            <li><a href="catering.html" class="active">CATERING</a></li>
+        </ul>
+    </nav>
+
+    <main class="reserve-container">
+        <div class="reserve-glass-panel">
+            <header class="reserve-header">
+                <span class="hero-subtitle">Professional Catering</span>
+                <h1>Catering</h1>
+                <div class="it-divider-minimal"></div>
+                <p class="reserve-intro">Please fill out the form below and we'll do our best to accommodate your desired date and any requests you may have to make your party/celebration memorable.</p>
+            </header>
+
+            <form class="vinny-form">
+                <div class="form-group">
+                    <label>Full Name (required)</label>
+                    <input type="text" placeholder="e.g. Nina Simone" required>
+                </div>
+
+                <div class="form-row split">
+                    <div class="form-group">
+                        <label>Phone (required)</label>
+                        <input type="tel" placeholder="(123) 456-7890" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email (required)</label>
+                        <input type="email" placeholder="cris@example.com" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Company (optional)</label>
+                    <input type="text" placeholder="Name of your business...">
+                </div>
+
+                <div class="form-row split">
+                    <div class="form-group">
+                        <label>Number of People (required)</label>
+                        <select required>
+                            <option value="">Select party size</option>
+                            <option>10 People</option>
+                            <option>20 People</option>
+                            <option>30 People</option>
+                            <option>50+ People</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Select Date (required)</label>
+                        <input type="date" required value="2026-02-18">
+                    </div>
+                </div>
+
+                <div class="form-row split">
+                    <div class="form-group">
+                        <label>Select Time (required)</label>
+                        <select required>
+                            <option>11:30 AM</option>
+                            <option>12:00 PM</option>
+                            <option>1:00 PM</option>
+                            <option>5:00 PM</option>
+                            <option>6:00 PM</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Select Occasion (required)</label>
+                        <select required>
+                            <option value="">Select Occasion</option>
+                            <option>Corporate Lunch</option>
+                            <option>Office Party</option>
+                            <option>Holiday Event</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row split">
+                    <div class="form-group">
+                        <label>Type of Catering Service (required)</label>
+                        <select required>
+                            <option value="">Select Service Type</option>
+                            <option>Drop-off Delivery</option>
+                            <option>Full Service</option>
+                            <option>Pickup</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Budget per Person</label>
+                        <input type="text" placeholder="$30">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Description / Requests (optional)</label>
+                    <textarea placeholder="Any Special Requests?"></textarea>
+                </div>
+
+                <button type="submit" class="vinny-btn">Submit</button>
+            </form>
+        </div>
+    </main>
+    
+    <footer class="site-footer" style="background-color: #151515; padding: 80px 0 40px; border-top: 1px solid rgba(255, 255, 255, 0.05); font-family: 'Montserrat', sans-serif; color: #fff;">
+        <style>
+            /* This CSS only lives inside this footer instance */
+            .site-footer a { color: rgba(255, 255, 255, 0.6) !important; text-decoration: none !important; transition: 0.3s ease !important; }
+            .site-footer a:hover { color: #d4af37 !important; }
+            .footer-nav-link { font-size: 13px; margin-bottom: 12px; letter-spacing: 1px; display: block; }
+            .legal-link-bottom { font-size: 12px; margin: 0 15px; text-transform: uppercase; letter-spacing: 1px; }
+            
+            .footer-logo-img {
+                height: 65px; 
+                width: auto; /* Prevents horizontal stretching */
+                object-fit: contain; /* Ensures the image fits the box without distortion */
+                margin-bottom: 20px;
+                display: block;
+            }
+    
+            @media (max-width: 768px) {
+                .footer-container { grid-template-columns: 1fr !important; text-align: center; }
+                .footer-logo-img { margin: 0 auto 20px; }
+            }
+        </style>
+    
+        <div class="footer-container" style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 60px; padding: 0 30px;">
+            <div class="footer-col">
+                <a href="index.html">
+                    <img src="assets/images/Logo.png" alt="Vinny's Ristorante" class="footer-logo-img">
+                </a>
+                <p style="font-size: 14px; line-height: 1.8; color: rgba(255, 255, 255, 0.7);">Authentic Sicilian cuisine in the heart of Somerville since 1969. A local legacy of flavor and tradition.</p>
+            </div>
+    
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <div class="footer-link-grid">
+                    <a href="menu.html" class="footer-btn">THE MENU</a>
+                    <a href="reservations.html" class="footer-btn">RESERVATIONS</a>
+                    <a href="catering.html" class="footer-btn">CATERING</a>
+                    <a href="specials.html" class="footer-btn">SPECIALS</a>
+                </div>
+            </div>
+    
+            <div class="footer-col">
+                <h4 style="color: #c43131; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; font-family: 'Playfair Display', serif;">Visit Us</h4>
+                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); line-height: 1.6;">
+                    76 BROADWAY<br>
+                    SOMERVILLE, MA 02145<br>
+                    <span style="display: block; margin-top: 10px; color: #fff;">(617) 628-9214</span>
+                </p>
+            </div>
+        </div>
+    
+        <div class="footer-bottom" style="margin-top: 60px; padding: 40px 20px 0; border-top: 1px solid rgba(255, 255, 255, 0.05); text-align: center;">
+            <p style="font-size: 11px; color: rgba(255, 255, 255, 0.3); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;">© 2026 VINNY'S RISTORANTE. ALL RIGHTS RESERVED.</p>
+            <div class="footer-legal">
+                <a href="terms.html" class="legal-link-bottom">Terms</a>
+                <a href="privacy.html" class="legal-link-bottom">Privacy</a>
+                <a href="jobs.html" class="legal-link-bottom">Careers</a>
+            </div>
+            <div style="margin-top: 40px; font-size: 10px; color: rgba(255, 255, 255, 0.15); letter-spacing: 1px; text-transform: uppercase;">
+                Customized Design, Development & Maintenance by 
+                <a href="https://lenoper.com/" style="color: rgba(255, 255, 255, 0.3) !important; font-weight: 700;">Lenoper Technologies, Inc.</a>
+            </div>
+        </div>
+    </footer>
+    <script src="js/main.js"></script>
+</body>
+</html>
