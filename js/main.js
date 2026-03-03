@@ -266,7 +266,7 @@ function initGeneralReservations() {
     });
 }
 
-// 11. INITIALIZE EVERYTHING ON LOAD
+// 11. INITIALIZE EVERYTHING ON LOAD (UNIFIED)
 document.addEventListener('DOMContentLoaded', () => {
     initVideoControls();
     initSmoothScroll();
@@ -274,6 +274,54 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollObserver();
     initSpecialsDates();
     initMobileHint();
-    initSlackReservations();
-    initGeneralReservations();
+    initSlackReservations();      // Parties
+    initGeneralReservations();    // Regular Tables
+    initCateringReservations();   // Catering (The new one!)
 });
+
+// 12. FREE SLACK INTEGRATION (Catering)
+function initCateringReservations() {
+    const catForm = document.getElementById('catering-form');
+    if (!catForm) return;
+
+    catForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const btn = catForm.querySelector('.vinny-btn');
+        const originalText = btn.innerText;
+        btn.innerText = 'SENDING...';
+        btn.disabled = true;
+
+        const s1 = 'https://hooks.slack.com/services/T0AHTHUDVDL/';
+        const s2 = 'B0AJ1M4PZBQ/atU2n3rpXLHthq1oQnVxIt73';
+        const slackUrl = s1 + s2;
+
+        const payload = {
+            text: `🥘 *NEW CATERING REQUEST!*\n\n` +
+                  `*Name:* ${document.getElementById('cat-name').value}\n` +
+                  `*Phone:* ${document.getElementById('cat-phone').value}\n` +
+                  `*Email:* ${document.getElementById('cat-email').value}\n` +
+                  `*Company:* ${document.getElementById('cat-company').value || 'N/A'}\n` +
+                  `*Details:* ${document.getElementById('cat-size').value} on ${document.getElementById('cat-date').value} at ${document.getElementById('cat-time').value}\n` +
+                  `*Service:* ${document.getElementById('cat-service').value}\n` +
+                  `*Budget:* ${document.getElementById('cat-budget').value || 'Not specified'}\n` +
+                  `*Requests:* ${document.getElementById('cat-requests').value || 'None'}`
+        };
+
+        fetch(slackUrl, { 
+            method: 'POST', 
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload) 
+        })
+        .then(() => {
+            alert('Catering request sent! We will be in touch shortly.');
+            btn.innerText = 'SENT!';
+            catForm.reset();
+        })
+        .catch(() => {
+            alert('Error. Please call (617) 628-9214 for catering.');
+            btn.disabled = false;
+            btn.innerText = originalText;
+        });
+    });
+}

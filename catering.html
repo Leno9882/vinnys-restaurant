@@ -74,32 +74,32 @@
                 <p class="reserve-intro">Please fill out the form below and we'll do our best to accommodate your desired date and any requests you may have to make your party/celebration memorable.</p>
             </header>
 
-            <form class="vinny-form">
+            <form class="vinny-form" id="catering-form">
                 <div class="form-group">
-                    <label>Full Name (required)</label>
-                    <input type="text" placeholder="e.g. Nina Simone" required>
+                    <label for="cat-name">Full Name (required)</label>
+                    <input type="text" id="cat-name" placeholder="e.g. Nina Simone" required>
                 </div>
 
                 <div class="form-row split">
                     <div class="form-group">
-                        <label>Phone (required)</label>
-                        <input type="tel" placeholder="(123) 456-7890" required>
+                        <label for="cat-phone">Phone (required)</label>
+                        <input type="tel" id="cat-phone" placeholder="(123) 456-7890" required>
                     </div>
                     <div class="form-group">
-                        <label>Email (required)</label>
-                        <input type="email" placeholder="cris@example.com" required>
+                        <label for="cat-email">Email (required)</label>
+                        <input type="email" id="cat-email" placeholder="cris@example.com" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Company (optional)</label>
-                    <input type="text" placeholder="Name of your business...">
+                    <label for="cat-company">Company (optional)</label>
+                    <input type="text" id="cat-company" placeholder="Name of your business...">
                 </div>
 
                 <div class="form-row split">
                     <div class="form-group">
-                        <label>Number of People (required)</label>
-                        <select required>
+                        <label for="cat-size">Number of People (required)</label>
+                        <select id="cat-size" required>
                             <option value="">Select party size</option>
                             <option>10 People</option>
                             <option>20 People</option>
@@ -108,15 +108,15 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Select Date (required)</label>
-                        <input type="date" required value="2026-02-18">
+                        <label for="cat-date">Select Date (required)</label>
+                        <input type="date" id="cat-date" required>
                     </div>
                 </div>
 
                 <div class="form-row split">
                     <div class="form-group">
-                        <label>Select Time (required)</label>
-                        <select required>
+                        <label for="cat-time">Select Time (required)</label>
+                        <select id="cat-time" required>
                             <option>11:30 AM</option>
                             <option>12:00 PM</option>
                             <option>1:00 PM</option>
@@ -125,8 +125,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Select Occasion (required)</label>
-                        <select required>
+                        <label for="cat-occasion">Select Occasion (required)</label>
+                        <select id="cat-occasion" required>
                             <option value="">Select Occasion</option>
                             <option>Corporate Lunch</option>
                             <option>Office Party</option>
@@ -138,8 +138,8 @@
 
                 <div class="form-row split">
                     <div class="form-group">
-                        <label>Type of Catering Service (required)</label>
-                        <select required>
+                        <label for="cat-service">Type of Catering Service (required)</label>
+                        <select id="cat-service" required>
                             <option value="">Select Service Type</option>
                             <option>Drop-off Delivery</option>
                             <option>Full Service</option>
@@ -147,17 +147,17 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Budget per Person</label>
-                        <input type="text" placeholder="$30">
+                        <label for="cat-budget">Budget per Person</label>
+                        <input type="text" id="cat-budget" placeholder="$30">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Description / Requests (optional)</label>
-                    <textarea placeholder="Any Special Requests?"></textarea>
+                    <label for="cat-requests">Description / Requests (optional)</label>
+                    <textarea id="cat-requests" placeholder="Any Special Requests?"></textarea>
                 </div>
 
-                <button type="submit" class="vinny-btn">Submit</button>
+                <button type="submit" class="vinny-btn">Submit Catering Request</button>
             </form>
         </div>
     </main>
