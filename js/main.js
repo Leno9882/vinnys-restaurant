@@ -177,13 +177,8 @@ function initMobileHint() {
 }
 
 /* ==========================================================================
-   SLACK INTEGRATIONS
+   SLACK INTEGRATIONS (BULLETPROOF VERSION)
    ========================================================================== */
-
-// SHARED WEBHOOK CONFIG (UNIFIED)
-const SLACK_BASE = 'https://hooks.slack.com/services/T0AHTHUDVDL/';
-const SLACK_KEY = 'B0AJ8UUGHBN/k1lQvfvOQ3Lu87r7VxdyADIy'; // The specific #all-vinnysatnight Key
-const slackUrl = SLACK_BASE + SLACK_KEY;
 
 // 9. Private Parties
 function initSlackReservations() {
@@ -196,6 +191,8 @@ function initSlackReservations() {
         const originalText = btn.innerText;
         btn.innerText = 'SENDING...';
         btn.disabled = true;
+
+        const slackUrl = 'https://hooks.slack.com/services/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';
 
         const payload = {
             text: `🚨 *New Private Party Inquiry!*\n\n` +
@@ -233,6 +230,8 @@ function initGeneralReservations() {
         btn.innerText = 'BOOKING...';
         btn.disabled = true;
 
+        const slackUrl = 'https://hooks.slack.com/services/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';
+
         const payload = {
             text: `🍷 *New Table Reservation!*\n\n` +
                   `*Name:* ${document.getElementById('res-name').value}\n` +
@@ -268,6 +267,8 @@ function initCateringReservations() {
         btn.innerText = 'SENDING...';
         btn.disabled = true;
 
+        const slackUrl = 'https://hooks.slack.com/services/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';
+
         const payload = {
             text: `🥘 *NEW CATERING REQUEST!*\n\n` +
                   `*Name:* ${document.getElementById('cat-name').value}\n` +
@@ -293,7 +294,6 @@ function initCateringReservations() {
         });
     });
 }
-
 /* ==========================================================================
    INITIALIZATION
    ========================================================================== */
