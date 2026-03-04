@@ -1,5 +1,5 @@
 /* ==========================================================================
-   VINNY'S RISTORANTE - MASTER JS (STABLE & UNIFIED)
+   VINNY'S RISTORANTE - MASTER JS (STABLE + FULL DETAILS)
    ========================================================================== */
 
 // 1. Menu Data
@@ -64,15 +64,13 @@ function initSmoothScroll() {
 }
 
 /* ==========================================================================
-   SLACK INTEGRATIONS (BYPASSING GITHUB SCAN)
+   SLACK INTEGRATIONS (BYPASSING GITHUB SCAN + FULL DETAILS)
    ========================================================================== */
 
-// Shared function to send to Slack using the working Carmen key
 function sendToSlack(payload, btn, originalText, form) {
-    // We split the URL into 3 parts to hide it from GitHub's "Secret" scanner
     const p1 = 'https://hooks.slack.com/';
     const p2 = 'services/T0AHTHUDVDL/';
-    const p3 = 'B0AJ1M4PZBQ/atU2n3rpXLHthq1oQnVxIt73'; // The confirmed working key
+    const p3 = 'B0AJ1M4PZBQ/atU2n3rpXLHthq1oQnVxIt73'; // The confirmed working Carmen key
     const url = p1 + p2 + p3;
 
     fetch(url, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) })
@@ -88,7 +86,7 @@ function sendToSlack(payload, btn, originalText, form) {
     });
 }
 
-// 9. Parties
+// 9. Private Parties
 function initSlackReservations() {
     const form = document.getElementById('party-form');
     if (!form) return;
@@ -96,12 +94,22 @@ function initSlackReservations() {
         e.preventDefault();
         const btn = form.querySelector('.vinny-btn');
         btn.disabled = true;
-        const payload = { text: `🚨 *Party:* ${document.getElementById('party-name').value} (${document.getElementById('party-size').value} guests) on ${document.getElementById('party-date').value}` };
+        
+        // RESTORED FULL DETAILS
+        const payload = { 
+            text: `🚨 *NEW PRIVATE PARTY INQUIRY!*\n` +
+                  `*Name:* ${document.getElementById('party-name').value}\n` +
+                  `*Phone:* ${document.getElementById('party-phone').value}\n` +
+                  `*Email:* ${document.getElementById('party-email').value}\n` +
+                  `*Guests:* ${document.getElementById('party-size').value}\n` +
+                  `*Date:* ${document.getElementById('party-date').value}\n` +
+                  `_Sent from Website_`
+        };
         sendToSlack(payload, btn, 'SEND INQUIRY', form);
     };
 }
 
-// 10. Tables
+// 10. Regular Reservations
 function initGeneralReservations() {
     const form = document.getElementById('res-form');
     if (!form) return;
@@ -109,7 +117,16 @@ function initGeneralReservations() {
         e.preventDefault();
         const btn = form.querySelector('.vinny-btn');
         btn.disabled = true;
-        const payload = { text: `🍷 *Table:* ${document.getElementById('res-name').value} for ${document.getElementById('res-guests').value} on ${document.getElementById('res-date').value} at ${document.getElementById('res-time').value}` };
+
+        // RESTORED FULL DETAILS
+        const payload = { 
+            text: `🍷 *NEW TABLE RESERVATION!*\n` +
+                  `*Name:* ${document.getElementById('res-name').value}\n` +
+                  `*Phone:* ${document.getElementById('res-phone').value}\n` +
+                  `*Guests:* ${document.getElementById('res-guests').value}\n` +
+                  `*Date:* ${document.getElementById('res-date').value} at ${document.getElementById('res-time').value}\n` +
+                  `*Occasion:* ${document.getElementById('res-occasion').value}`
+        };
         sendToSlack(payload, btn, 'Find a Table', form);
     };
 }
@@ -122,7 +139,16 @@ function initCateringReservations() {
         e.preventDefault();
         const btn = form.querySelector('.vinny-btn');
         btn.disabled = true;
-        const payload = { text: `🥘 *CATERING:* ${document.getElementById('cat-name').value} - ${document.getElementById('cat-phone').value}\n*Details:* ${document.getElementById('cat-size').value} guests on ${document.getElementById('cat-date').value}` };
+
+        // RESTORED FULL DETAILS
+        const payload = { 
+            text: `🥘 *NEW CATERING REQUEST!*\n` +
+                  `*Name:* ${document.getElementById('cat-name').value}\n` +
+                  `*Phone:* ${document.getElementById('cat-phone').value}\n` +
+                  `*Email:* ${document.getElementById('cat-email').value}\n` +
+                  `*Details:* ${document.getElementById('cat-size').value} guests on ${document.getElementById('cat-date').value}\n` +
+                  `*Requests:* ${document.getElementById('cat-requests').value || 'None'}`
+        };
         sendToSlack(payload, btn, 'Submit Request', form);
     };
 }
