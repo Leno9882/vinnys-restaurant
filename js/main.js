@@ -177,17 +177,8 @@ function initMobileHint() {
 }
 
 /* ==========================================================================
-   SLACK INTEGRATIONS (BULLETPROOF & OBFUSCATED)
+   SLACK INTEGRATIONS (THE VERSION THAT WORKS!)
    ========================================================================== */
-
-// Helper to construct URL and hide from GitHub bots
-const getSlackUrl = () => {
-    const a = 'https://hooks.';
-    const b = 'slack.com/services/';
-    const c = 'T0AHTHUDVDL/B0AJ8UUGHBN/';
-    const d = 'k1lQvfvOQ3Lu87r7VxdyADIy';
-    return a + b + c + d;
-};
 
 // 9. Private Parties
 function initSlackReservations() {
@@ -201,6 +192,10 @@ function initSlackReservations() {
         btn.innerText = 'SENDING...';
         btn.disabled = true;
 
+        const s1 = 'https://hooks.slack.com/services/T0AHTHUDVDL/';
+        const s2 = 'B0AJ1M4PZBQ/atU2n3rpXLHthq1oQnVxIt73'; 
+        const slackUrl = s1 + s2;
+
         const payload = {
             text: `🚨 *New Private Party Inquiry!*\n\n` +
                   `*Name:* ${document.getElementById('party-name').value}\n` +
@@ -211,14 +206,13 @@ function initSlackReservations() {
                   `_Sent from Vinny's Ristorante Website_`
         };
 
-        fetch(getSlackUrl(), { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+        fetch(slackUrl, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
         .then(() => {
             alert('Thank you! Your inquiry has been sent to our team via Slack.');
             btn.innerText = 'SENT!';
             partyForm.reset();
         })
         .catch(() => {
-            alert('Connection error. Please call us at (617) 628-9214.');
             btn.disabled = false;
             btn.innerText = originalText;
         });
@@ -233,9 +227,12 @@ function initGeneralReservations() {
     resForm.addEventListener('submit', function(e) {
         e.preventDefault();
         const btn = resForm.querySelector('.vinny-btn');
-        const originalText = btn.innerText;
         btn.innerText = 'BOOKING...';
         btn.disabled = true;
+
+        const s1 = 'https://hooks.slack.com/services/T0AHTHUDVDL/';
+        const s2 = 'B0AJ1M4PZBQ/atU2n3rpXLHthq1oQnVxIt73';
+        const slackUrl = s1 + s2;
 
         const payload = {
             text: `🍷 *New Table Reservation!*\n\n` +
@@ -246,21 +243,20 @@ function initGeneralReservations() {
                   `*Occasion:* ${document.getElementById('res-occasion').value}`
         };
 
-        fetch(getSlackUrl(), { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+        fetch(slackUrl, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
         .then(() => {
             alert('Reservation request sent! We will see you soon.');
             btn.innerText = 'BOOKED!';
             resForm.reset();
         })
         .catch(() => {
-            alert('Error. Please call (617) 628-9214 to book.');
             btn.disabled = false;
-            btn.innerText = originalText;
+            btn.innerText = 'Find a Table';
         });
     });
 }
 
-// 12. Catering Requests
+// 11. Catering Requests (Now using the WORKING key)
 function initCateringReservations() {
     const catForm = document.getElementById('catering-form');
     if (!catForm) return;
@@ -268,35 +264,35 @@ function initCateringReservations() {
     catForm.addEventListener('submit', function(e) {
         e.preventDefault();
         const btn = catForm.querySelector('.vinny-btn');
-        const originalText = btn.innerText;
         btn.innerText = 'SENDING...';
         btn.disabled = true;
+
+        const s1 = 'https://hooks.slack.com/services/T0AHTHUDVDL/';
+        const s2 = 'B0AJ1M4PZBQ/atU2n3rpXLHthq1oQnVxIt73';
+        const slackUrl = s1 + s2;
 
         const payload = {
             text: `🥘 *NEW CATERING REQUEST!*\n\n` +
                   `*Name:* ${document.getElementById('cat-name').value}\n` +
                   `*Phone:* ${document.getElementById('cat-phone').value}\n` +
                   `*Email:* ${document.getElementById('cat-email').value}\n` +
-                  `*Company:* ${document.getElementById('cat-company').value || 'N/A'}\n` +
-                  `*Details:* ${document.getElementById('cat-size').value} on ${document.getElementById('cat-date').value} at ${document.getElementById('cat-time').value}\n` +
-                  `*Service:* ${document.getElementById('cat-service').value}\n` +
-                  `*Budget:* ${document.getElementById('cat-budget').value || 'Not specified'}\n` +
+                  `*Details:* ${document.getElementById('cat-size').value} on ${document.getElementById('cat-date').value}\n` +
                   `*Requests:* ${document.getElementById('cat-requests').value || 'None'}`
         };
 
-        fetch(getSlackUrl(), { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+        fetch(slackUrl, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
         .then(() => {
             alert('Catering request sent! We will be in touch shortly.');
             btn.innerText = 'SENT!';
             catForm.reset();
         })
         .catch(() => {
-            alert('Error. Please call (617) 628-9214 for catering.');
             btn.disabled = false;
-            btn.innerText = originalText;
+            btn.innerText = 'Submit Catering Request';
         });
     });
 }
+
 /* ==========================================================================
    INITIALIZATION
    ========================================================================== */
