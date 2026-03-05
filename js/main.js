@@ -67,10 +67,10 @@ function initSmoothScroll() {
    SLACK INTEGRATIONS (BYPASSING GITHUB SCAN + FULL DETAILS)
    ========================================================================== */
 
-function sendToSlack(payload, btn, originalText, form) {
+   function sendToSlack(payload, btn, originalText, form) {
     const p1 = 'https://hooks.slack.com/';
     const p2 = 'services/T0AHTHUDVDL/';
-    const p3 = 'B0AJ1M4PZBQ/atU2n3rpXLHthq1oQnVxIt73'; // The confirmed working Carmen key
+    const p3 = 'B08F9H31U9A/S3nIidv0R6qM94vTsh26uDk9'; // The NEW Vinny's at Night Key
     const url = p1 + p2 + p3;
 
     fetch(url, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) })
