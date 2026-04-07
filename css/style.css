@@ -1,22 +1,19 @@
 /* ============================================================
-   0. GLOBAL SETTINGS & VARIABLES
+   0. GLOBAL SETTINGS & VARIABLES (REFINED 2026)
    ============================================================ */
    :root {
-    /* Brand Colors */
     --primary-bg: #1c1c1c;    
     --darker-bg: #151515;     
     --it-red: #c43131;       
     --it-green: #008C45;
     --gold: #c4a47c;         
     
-    /* Typography & Glass */
     --text-main: #ffffff;
     --text-muted: rgba(255, 255, 255, 0.7);
     --transition-smooth: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     --glass-bg: rgba(255, 255, 255, 0.03);
     --glass-border: rgba(255, 255, 255, 0.08);
 }
-
 * { 
     box-sizing: border-box; 
     margin: 0; 
@@ -36,7 +33,6 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
 }
-
 ::selection {
     background-color: var(--it-green);
     color: white;
@@ -73,7 +69,6 @@ body {
    .menu-hero {
     position: relative;
     height: 90vh; 
-    width: 100%;
     overflow: hidden;
     background: var(--darker-bg); 
     display: flex;
@@ -81,20 +76,15 @@ body {
     justify-content: center;
 }
 
-/* 1.1 LOCAL HERO VIDEO (HOME PAGE) */
 .hero-video {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    width: 100%;            
-    height: 100%;           
+    width: 100%; height: 100%;           
     object-fit: cover;      
     z-index: 1;
-    /* Lean: Reduced scale from 1.05 to 1.01 to lower GPU load */
-    scale: 1.01; 
+    scale: 1.01; /* Optimized for 2026 High-Refresh Displays */
 }
-
 /* 1.2 SUB-PAGE HERO (STATIC & FAST) */
 .sub-page-hero {
     height: 50vh; 
@@ -114,15 +104,13 @@ body {
 .hero-overlay {
     position: relative;
     z-index: 5;             
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background: radial-gradient(circle, rgba(28, 28, 28, 0.1) 0%, rgba(21, 21, 21, 0.6) 100%);
 }
-
 .mute-btn {
     position: absolute;
     bottom: 40px; 
@@ -206,11 +194,7 @@ body {
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
     border-bottom: 1px solid var(--glass-border);
-    /* Lean: Targeted transitions are much smoother on Desktop Chrome */
-    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
-                background 0.4s ease, 
-                border-radius 0.4s ease, 
-                width 0.4s ease;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s ease;
 }
 
 /* 2.1 NAVIGATION LIST & LINKS */
@@ -225,9 +209,7 @@ body {
 }
 
 .menu-cat-nav a {
-    position: relative;
     color: #fff;
-    text-decoration: none;
     text-transform: uppercase;
     font-weight: 700;
     font-size: 0.75rem;
@@ -235,7 +217,6 @@ body {
     letter-spacing: 2px;
     transition: var(--transition-smooth);
 }
-
 .menu-cat-nav a::after {
     content: '';
     position: absolute;
@@ -248,9 +229,9 @@ body {
     transition: var(--transition-smooth);
 }
 
-.menu-cat-nav a:hover,
-.menu-cat-nav a.active {
+.menu-cat-nav a:hover, .menu-cat-nav a.active {
     opacity: 1;
+    color: var(--it-green);
 }
 
 .menu-cat-nav a:hover::after,
@@ -641,10 +622,10 @@ body {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     width: 100%;
-    max-width: 850px; /* Slightly wider for elegant line lengths */
+    max-width: 850px;
     padding: 60px 50px;
     border: 1px solid var(--glass-border);
-    border-radius: 4px; /* Sharp modern edges */
+    border-radius: 4px;
     box-shadow: 0 40px 100px rgba(0,0,0,0.5);
     position: relative;
     overflow: hidden;
@@ -664,16 +645,13 @@ body {
     border-left: 2px solid var(--it-green);
     padding-left: 30px;
     margin-bottom: 40px;
-    /* Lean: Specific transitions prevent "jitter" on hover */
-    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), 
-                border-color 0.4s ease;
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), border-color 0.4s ease;
 }
 
 .menu-row:hover {
     border-left-color: var(--gold);
     transform: translateX(8px);
 }
-
 .menu-row h4 {
     font-family: 'Playfair Display', serif;
     font-size: 1.4rem;
