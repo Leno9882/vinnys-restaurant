@@ -28,11 +28,12 @@
                 <p class="reserve-intro">To make a reservation, please fill out the form below. For parties larger than 6, please visit our <a href="parties.html">Private Events</a> page.</p>
             </header>
 
-            <form class="vinny-form" id="res-form">
+            <form class="vinny-form" id="res-form" action="send_reservation.php" method="POST">
+
                 <div class="form-row split">
                     <div class="form-group">
                         <label>Number of Guests</label>
-                        <select id="res-guests" required>
+                        <select id="res-guests" name="guest_count" required>
                             <option value="1">1 Person</option>
                             <option value="2">2 People</option>
                             <option value="3">3 People</option>
@@ -41,9 +42,10 @@
                             <option value="6">6 People</option>
                         </select>
                     </div>
+            
                     <div class="form-group">
                         <label>Occasion</label>
-                        <select id="res-occasion">
+                        <select id="res-occasion" name="occasion">
                             <option value="Regular Dining">None / Regular Dining</option>
                             <option value="Birthday">Birthday</option>
                             <option value="Anniversary">Anniversary</option>
@@ -57,11 +59,12 @@
                 <div class="form-row split">
                     <div class="form-group">
                         <label>Select Date</label>
-                        <input type="date" id="res-date" required>
+                        <input type="date" id="res-date" name="res_date" required>
                     </div>
+            
                     <div class="form-group">
                         <label>Select Time</label>
-                        <select id="res-time" required>
+                        <select id="res-time" name="res_time" required>
                             <option value="5:00 PM">5:00 PM</option>
                             <option value="6:00 PM">6:00 PM</option>
                             <option value="7:00 PM">7:00 PM</option>
@@ -73,17 +76,17 @@
                 <div class="form-row split">
                     <div class="form-group">
                         <label>Your Name</label>
-                        <input type="text" id="res-name" placeholder="Full Name" required>
+                        <input type="text" id="res-name" name="customer_name" placeholder="Full Name" required>
                     </div>
+            
                     <div class="form-group">
                         <label>Phone Number</label>
-                        <input type="tel" id="res-phone" placeholder="(617) 000-0000" required>
+                        <input type="tel" id="res-phone" name="customer_phone" placeholder="(617) 000-0000" required>
                     </div>
                 </div>
             
                 <button type="submit" class="vinny-btn">Find a Table</button>
             </form>
-              
         </div> 
     </main>
 

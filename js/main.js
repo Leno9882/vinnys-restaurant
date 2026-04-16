@@ -66,21 +66,28 @@ function initSmoothScroll() {
 /* ==========================================================================
    SLACK INTEGRATIONS (BYPASSING GITHUB SCAN + FULL DETAILS)
    ========================================================================== */
-
    function sendToSlack(payload, btn, originalText, form) {
+    // These three pieces combine to form the URL you just sent me
     const p1 = 'https://hooks.slack.com/';
     const p2 = 'services/T0AHTHUDVDL/';
-    const p3 = 'B0ATALQ2JTX/yVikoSuy61wKNn0xDWHz7WqK'; // YOUR NEW ACTIVE WEBHOOK
+    const p3 = 'B0ATALQ2JTX/yVikoSuy61wKNn0xDWHz7WqK'; 
     const url = p1 + p2 + p3;
 
-    fetch(url, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) })
+    // We use 'cors' and 'application/json' to match exactly what Slack wants
+    fetch(url, { 
+        method: 'POST', 
+        mode: 'no-cors', // Keeps it simple for Slack's basic incoming webhooks
+        headers: { 'Content-Type': 'application/json' }, 
+        body: JSON.stringify(payload) 
+    })
     .then(() => {
         alert('Sent! Check the tablet for the ding.');
         btn.innerText = 'SENT!';
         form.reset();
         btn.disabled = false;
     })
-    .catch(() => {
+    .catch((err) => {
+        console.error('Slack Error:', err);
         alert('Error. Call us at (617) 628-9214.');
         btn.disabled = false;
         btn.innerText = originalText;

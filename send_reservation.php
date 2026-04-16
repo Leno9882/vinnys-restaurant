@@ -3,7 +3,7 @@
  * Vinny's Ristorante - Reservation Handler (Slack & Backup Email)
  */
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // 1. Collect and Sanitize Data
     $name     = strip_tags(trim($_POST["customer_name"]));
@@ -12,11 +12,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $date     = strip_tags(trim($_POST["res_date"]));
     $time     = strip_tags(trim($_POST["res_time"]));
     $occasion = strip_tags(trim($_POST["occasion"]));
-    $requests = strip_tags(trim($_POST["special_requests"]));
+    $requests = isset($_POST["special_requests"]) ? strip_tags(trim($_POST["special_requests"])) : "";
 
     // 2. YOUR SLACK WEBHOOK URL (Critical!)
-    // Paste the URL you got from the Slack App settings here
-    $slack_webhook_url = 'YOUR_WEBHOOK_URL_HERE';
+    $slack_webhook_url = "https://hooks.slack.com/services/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";
 
     // 3. Construct the Slack Message (Professional Block Format)
     $message = [
@@ -39,7 +38,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ],
             [
                 "type" => "section",
-                "text" => ["type" => "mrkdwn", "text" => "*Special Requests:*\n" . ($requests ? $requests : "_None provided_")]
+                "text" => [
+                    "type" => "mrkdwn",
+                    "text" => "*Special Requests:*\n" . ($requests ? $requests : "_None provided_")
+                ]
             ],
             [
                 "type" => "divider"
@@ -60,13 +62,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // 5. Final Logic: Did it work?
     if ($httpCode == 200) {
-        // SUCCESS: Send to Thank You page
         header("Location: thank-you.html?status=success");
         exit;
     } else {
         // FAIL: If Slack fails, send an emergency email as backup
         $backup_subject = "BACKUP ALERT: Reservation for $name";
-        $backup_body = "Slack notification failed. Reservation details:\n\nName: $name\nPhone: $phone\nDate: $date\nTime: $time\nGuests: $guests";
+        $backup_body = "Slack notification failed. Reservation details:\n\nName: $name\nPhone: $phone\nDate: $date\nTime: $time\nGuests: $guests\nOccasion: $occasion";
         mail("owner@vinnysristorante.com", $backup_subject, $backup_body);
         
         // Still redirect to success so the customer doesn't panic
