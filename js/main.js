@@ -70,7 +70,7 @@ function initSmoothScroll() {
    function sendToSlack(payload, btn, originalText, form) {
     const p1 = 'https://hooks.slack.com/';
     const p2 = 'services/T0AHTHUDVDL/';
-    const p3 = 'B0AJBNE6N31/2NruuzzR7flxePpBtJhPmFjv'; // NEW Webhook for vmigliore48
+    const p3 = 'B0ATALQ2JTX/yVikoSuy61wKNn0xDWHz7WqK'; // YOUR NEW ACTIVE WEBHOOK
     const url = p1 + p2 + p3;
 
     fetch(url, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) })
@@ -78,7 +78,7 @@ function initSmoothScroll() {
         alert('Sent! Check the tablet for the ding.');
         btn.innerText = 'SENT!';
         form.reset();
-        btn.disabled = false; // Re-enable for next use
+        btn.disabled = false;
     })
     .catch(() => {
         alert('Error. Call us at (617) 628-9214.');
