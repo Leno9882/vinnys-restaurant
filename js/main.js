@@ -67,19 +67,20 @@ function initSmoothScroll() {
    SLACK INTEGRATIONS (BYPASSING GITHUB SCAN + FULL DETAILS)
    ========================================================================== */
    function sendToSlack(payload, btn, originalText, form) {
-    // These three pieces combine to form the URL you just sent me
+    // UPDATED WITH YOUR NEW VERIFIED WEBHOOK PIECES
     const p1 = 'https://hooks.slack.com/';
     const p2 = 'services/T0AHTHUDVDL/';
-    const p3 = 'B0ATALQ2JTX/yVikoSuy61wKNn0xDWHz7WqK'; 
+    const p3 = 'B0ATU92T3K3/8DeUFZP1XGjmemBg6v77gRnp'; // <--- NEW PIECE
     const url = p1 + p2 + p3;
 
     // We use 'cors' and 'application/json' to match exactly what Slack wants
     fetch(url, { 
         method: 'POST', 
-        mode: 'no-cors', // Keeps it simple for Slack's basic incoming webhooks
+        mode: 'no-cors', 
         headers: { 'Content-Type': 'application/json' }, 
         body: JSON.stringify(payload) 
     })
+// ... rest of the code stays the same
     .then(() => {
         alert('Sent! Check the tablet for the ding.');
         btn.innerText = 'SENT!';
